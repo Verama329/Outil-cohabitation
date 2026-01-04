@@ -5,98 +5,100 @@ import plotly.graph_objects as go
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Radar Cohabitation", page_icon="🎯", layout="wide")
 
-# 2. CSS AVANCÉ (FORCER LE MODE CLAIR ET LA LISIBILITÉ)
+# 2. CSS AVANCÉ (CORRECTIF COULEURS & CONTRASTE)
 st.markdown("""
-    <style>
-    /* FORCER LE FOND BLANC ET TEXTE NOIR PARTOUT */
-    .stApp {
-        background-color: #ffffff;
-        color: #000000;
+<style>
+    /* 1. FORCER LE FOND BLANC ET TEXTE NOIR (OVERRIDE TOTAL) */
+    .stApp, div[data-testid="stDecoration"], div[data-testid="stSidebar"] {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
     }
     
-    /* TYPOGRAPHIE */
-    h1, h2, h3, h4 { 
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-        color: #0f172a !important; /* Bleu nuit très foncé */
-        font-weight: 700;
+    /* 2. TEXTES ET PARAGRAPHES */
+    h1, h2, h3, h4, h5, h6 {
+        color: #1e293b !important; /* Bleu nuit foncé */
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    p, li, div, span, label {
+        color: #334155 !important; /* Gris anthracite */
+        font-size: 1.05rem;
+        line-height: 1.6;
     }
     
-    p, li, span, div { 
-        color: #334155 !important; /* Gris foncé lisible */
-        font-size: 1.1rem; 
-        line-height: 1.6; 
+    /* 3. SIDEBAR ET WIDGETS */
+    section[data-testid="stSidebar"] {
+        background-color: #f8fafc !important; /* Gris très pâle */
+        border-right: 1px solid #e2e8f0;
     }
-
-    /* EN-TÊTE */
+    /* Force la couleur des boutons radio (les questions) */
+    .stRadio label p {
+        color: #0f172a !important;
+        font-weight: 500;
+    }
+    
+    /* 4. EN-TÊTE */
     .header-box {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
         padding: 40px;
         border-radius: 12px;
         text-align: center;
         margin-bottom: 30px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    .header-box h1 { color: #ffffff !important; margin: 0; font-size: 2.8rem; }
-    .header-box p { color: #e2e8f0 !important; font-size: 1.3rem; margin-top: 10px; }
+    .header-box h1 { color: #ffffff !important; margin: 0; font-size: 2.5rem; }
+    .header-box p { color: #e2e8f0 !important; font-size: 1.2rem; margin-top: 10px; }
 
-    /* CARTES DE RÉSULTATS */
+    /* 5. CARTES DE RÉSULTATS */
     .profile-card {
-        background-color: #f8fafc;
-        border: 1px solid #e2e8f0;
+        background-color: #ffffff;
+        border: 1px solid #cbd5e1;
         border-radius: 12px;
-        padding: 30px;
+        padding: 25px;
         margin-bottom: 20px;
-        border-left: 12px solid #ccc;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        border-left: 10px solid #94a3b8;
     }
     
     /* COULEURS DES PROFILS */
-    .border-red { border-left-color: #ef4444 !important; }
-    .border-orange { border-left-color: #f97316 !important; }
-    .border-blue { border-left-color: #3b82f6 !important; }
-    .border-green { border-left-color: #22c55e !important; }
+    .border-red { border-left-color: #dc2626 !important; }
+    .border-orange { border-left-color: #ea580c !important; }
+    .border-blue { border-left-color: #2563eb !important; }
+    .border-green { border-left-color: #16a34a !important; }
 
-    /* ACTION PRIORITAIRE (BOITE) */
+    /* 6. ACTION PRIORITAIRE (CORRECTION DU BUG D'AFFICHAGE) */
     .action-container {
-        background-color: #eff6ff; /* Bleu très pâle */
+        background-color: #eff6ff !important; /* Bleu très clair */
         border: 2px solid #bfdbfe;
         border-radius: 12px;
         padding: 30px;
         margin-top: 30px;
     }
     .action-badge {
-        background-color: #dc2626;
+        background-color: #b91c1c;
         color: white !important;
-        padding: 6px 16px;
+        padding: 5px 15px;
         border-radius: 20px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: bold;
         text-transform: uppercase;
         display: inline-block;
         margin-bottom: 15px;
     }
-    
-    /* RECOMMANDATIONS CHAPITRES */
     .chapter-box {
-        background-color: #f0fdf4; /* Vert très pâle */
-        border-left: 6px solid #22c55e;
+        background-color: #f0fdf4 !important;
+        border-left: 5px solid #16a34a;
         padding: 20px;
         border-radius: 8px;
-        margin-top: 10px;
+        margin-top: 15px;
     }
-
-    /* SIDEBAR PERSONNALISÉE */
-    section[data-testid="stSidebar"] {
-        background-color: #f1f5f9; /* Gris très clair */
-        border-right: 1px solid #cbd5e1;
-    }
-    </style>
+</style>
 """, unsafe_allow_html=True)
 
 # 3. EN-TÊTE
 st.markdown("""
 <div class="header-box">
-    <h1>LE RADAR DE MATURITÉ EN COHABITATION</h1>
-    <p>Outil d'auto-diagnostic stratégique — 5 minutes pour savoir par où commencer</p>
+<h1>LE RADAR DE MATURITÉ EN COHABITATION</h1>
+<p>Outil d'auto-diagnostic stratégique — 5 minutes pour savoir par où commencer</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -115,7 +117,7 @@ with st.expander("📖 MODE D'EMPLOI & CONSIGNES (CLIQUEZ POUR LIRE)", expanded=
     **CONSIGNE :** Pour chaque question, choisissez **la réponse qui reflète le mieux votre réalité actuelle** (pas ce que vous aimeriez avoir, mais ce qui existe vraiment aujourd'hui).
     """)
 
-# 5. CONTENU DES PROFILS (BASE DE DONNÉES TEXTE)
+# 5. CONTENU DES PROFILS (TEXTE SANS INDENTATION POUR ÉVITER LES BUGS)
 def get_profile_data(score):
     if score <= 24:
         return {
@@ -214,13 +216,9 @@ def get_profile_data(score):
             "chap_prio2": "<strong>Tous les chapitres</strong> (Lecture en mode mentorat)"
         }
 
-# 6. SIDEBAR : QUESTIONNAIRE (TEXTE EXACT DU DOCUMENT)
-# Nous utilisons une liste et la fonction .index() pour calculer le score automatiquement (A=1, B=2...)
-
+# 6. SIDEBAR : QUESTIONNAIRE
 st.sidebar.header("QUESTIONNAIRE")
 st.sidebar.info("Veuillez répondre aux 12 questions.")
-
-# -- AXE A --
 st.sidebar.markdown("### AXE A : GOUVERNANCE")
 
 opt_q1 = [
@@ -259,7 +257,6 @@ opt_q4 = [
 q4_sel = st.sidebar.radio("Q4. Mesure d'impact ?", opt_q4)
 s4 = opt_q4.index(q4_sel) + 1
 
-# -- AXE B --
 st.sidebar.markdown("---")
 st.sidebar.markdown("### AXE B : OPÉRATIONS")
 
@@ -299,7 +296,6 @@ opt_q8 = [
 q8_sel = st.sidebar.radio("Q8. Gestion des pauses de service/exclusions ?", opt_q8)
 s8 = opt_q8.index(q8_sel) + 1
 
-# -- AXE C --
 st.sidebar.markdown("---")
 st.sidebar.markdown("### AXE C : ALLIANCES")
 
@@ -339,7 +335,7 @@ opt_q12 = [
 q12_sel = st.sidebar.radio("Q12. Médiation sociale dédiée ?", opt_q12)
 s12 = opt_q12.index(q12_sel) + 1
 
-# 7. CALCULS ET LOGIQUE
+# 7. CALCULS
 total_score = s1 + s2 + s3 + s4 + s5 + s6 + s7 + s8 + s9 + s10 + s11 + s12
 score_a = s1 + s2 + s3 + s4
 score_b = s5 + s6 + s7 + s8
@@ -347,15 +343,13 @@ score_c = s9 + s10 + s11 + s12
 
 data = get_profile_data(total_score)
 
-# 8. AFFICHAGE PRINCIPAL (VUE RÉSULTATS)
+# 8. AFFICHAGE PRINCIPAL
 
 # Section A: Graphique et Scores
 col_stats, col_radar = st.columns([1, 1])
 
 with col_stats:
     st.markdown("### 📊 VOS RÉSULTATS")
-    
-    # Colonnes de scores
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("TOTAL", f"{total_score}/48")
     m2.metric("AXE A", f"{score_a}/16")
@@ -368,7 +362,7 @@ with col_stats:
     st.markdown(f"**Axe C :** Alliances & Partenariats")
 
 with col_radar:
-    # Graphique Radar
+    # Radar Chart
     categories = ['Gouvernance', 'Opérations', 'Alliances']
     values = [score_a, score_b, score_c]
     
@@ -383,23 +377,24 @@ with col_radar:
     ))
     fig.update_layout(
         polar=dict(
-            radialaxis=dict(visible=True, range=[0, 16])
+            radialaxis=dict(visible=True, range=[0, 16], showticklabels=False),
+            bgcolor='rgba(0,0,0,0)'
         ),
         showlegend=False,
         margin=dict(t=20, b=20, l=40, r=40),
         height=250,
-        paper_bgcolor="rgba(0,0,0,0)", # Fond transparent
+        paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="black") # Texte du graphique en noir
+        font=dict(color="#0f172a")
     )
     st.plotly_chart(fig, use_container_width=True)
 
-# Section B: Carte Profil
+# Section B: Carte Profil (CORRIGÉ : PAS D'INDENTATION POUR ÉVITER LE CODE BLOCK)
 st.markdown(f"""
 <div class="profile-card {data['css_class']}">
-    <h2 style="color:#1e293b; margin-top:0;">{data['nom']}</h2>
-    <div style="font-weight:bold; color:#64748b; margin-bottom:15px;">{data['score_txt']}</div>
-    <p><strong>🔍 VOTRE RÉALITÉ ACTUELLE</strong><br>{data['intro']}</p>
+<h2 style="color:#1e293b; margin-top:0;">{data['nom']}</h2>
+<div style="font-weight:bold; color:#64748b; margin-bottom:15px;">{data['score_txt']}</div>
+<p><strong>🔍 VOTRE RÉALITÉ ACTUELLE</strong><br>{data['intro']}</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -415,29 +410,25 @@ with c2:
     for risque in data['risques']:
         st.markdown(f"- {risque}")
 
-# Section D: Action Prioritaire
+# Section D: Action Prioritaire (CORRIGÉ : PAS D'INDENTATION)
 st.markdown(f"""
 <div class="action-container">
-    <div class="action-badge">🎯 LOW HANGING FRUIT</div>
-    <h2 style="color:#991b1b; margin-top:0;">VOTRE ACTION PRIORITAIRE</h2>
-    <p><em>Ne tentez pas de tout refaire. Commencez par UNE SEULE CHOSE :</em></p>
-    
-    <h3 style="color:#b91c1c; margin-top:15px;">➜ {data['action_titre']}</h3>
-    
-    <div style="margin-top:20px;">
-        <strong>POURQUOI ?</strong><br>
-        {data['action_why']}
-    </div>
-    
-    <div style="margin-top:15px;">
-        <strong>COMMENT ?</strong><br>
-        {data['action_how']}
-    </div>
-    
-    <div style="margin-top:15px;">
-        <strong>⏱️ TEMPS REQUIS</strong><br>
-        {data['action_time']}
-    </div>
+<div class="action-badge">🎯 LOW HANGING FRUIT</div>
+<h2 style="color:#b91c1c; margin-top:0;">VOTRE ACTION PRIORITAIRE</h2>
+<p><em>Ne tentez pas de tout refaire. Commencez par UNE SEULE CHOSE :</em></p>
+<h3 style="color:#b91c1c; margin-top:15px;">➜ {data['action_titre']}</h3>
+<div style="margin-top:20px;">
+<strong>POURQUOI ?</strong><br>
+{data['action_why']}
+</div>
+<div style="margin-top:15px;">
+<strong>COMMENT ?</strong><br>
+{data['action_how']}
+</div>
+<div style="margin-top:15px;">
+<strong>⏱️ TEMPS REQUIS</strong><br>
+{data['action_time']}
+</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -445,8 +436,8 @@ st.markdown(f"""
 st.markdown("### 📚 CHAPITRES RECOMMANDÉS")
 st.markdown(f"""
 <div class="chapter-box">
-    <p>🔥 <strong>Priorité 1 (À lire maintenant) :</strong><br>{data['chap_prio1']}</p>
-    <p>📅 <strong>Priorité 2 (Dans les 3-6 mois) :</strong><br>{data['chap_prio2']}</p>
+<p>🔥 <strong>Priorité 1 (À lire maintenant) :</strong><br>{data['chap_prio1']}</p>
+<p>📅 <strong>Priorité 2 (Dans les 3-6 mois) :</strong><br>{data['chap_prio2']}</p>
 </div>
 """, unsafe_allow_html=True)
 
