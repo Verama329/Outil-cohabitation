@@ -5,10 +5,10 @@ import plotly.graph_objects as go
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Radar Cohabitation", page_icon="🎯", layout="wide")
 
-# 2. CSS AVANCÉ (CORRECTIF COULEURS, CONTRASTE & FLUIDITÉ)
+# 2. CSS AVANCÉ (FORCER LE FOND BLANC ET LISIBILITÉ)
 st.markdown("""
 <style>
-    /* FORCER LE FOND BLANC ET TEXTE NOIR PARTOUT (OVERRIDE TOTAL) */
+    /* FORCER LE FOND BLANC ET TEXTE NOIR PARTOUT */
     .stApp, div[data-testid="stDecoration"], div[data-testid="stSidebar"], section[data-testid="stSidebar"] {
         background-color: #ffffff !important;
         color: #0f172a !important;
@@ -16,13 +16,13 @@ st.markdown("""
     
     /* TYPOGRAPHIE */
     h1, h2, h3, h4, h5, h6 {
-        color: #1e293b !important; /* Bleu nuit foncé */
+        color: #1e293b !important;
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-weight: 700;
     }
     
     p, li, div, span, label, .stMarkdown {
-        color: #334155 !important; /* Gris anthracite lisible */
+        color: #334155 !important;
         font-size: 1.05rem;
         line-height: 1.6;
     }
@@ -39,27 +39,15 @@ st.markdown("""
     .header-box h1 { color: #ffffff !important; margin: 0; font-size: 2.5rem; }
     .header-box p { color: #e2e8f0 !important; font-size: 1.2rem; margin-top: 10px; }
 
-    /* BARRE LATÉRALE (SIDEBAR) */
+    /* BARRE LATÉRALE */
     section[data-testid="stSidebar"] {
-        background-color: #f8fafc !important; /* Gris très pâle */
+        background-color: #f8fafc !important;
         border-right: 1px solid #e2e8f0;
     }
-    /* Force la couleur des boutons radio (les questions) pour être bien noir */
     .stRadio label p {
         color: #0f172a !important;
         font-weight: 600;
         font-size: 1rem;
-    }
-    div[role="radiogroup"] label {
-        background-color: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 10px;
-        margin-bottom: 5px;
-    }
-    div[role="radiogroup"] label:hover {
-        border-color: #3b82f6;
-        background-color: #eff6ff;
     }
 
     /* CARTES DE RÉSULTATS */
@@ -81,7 +69,7 @@ st.markdown("""
 
     /* ACTION PRIORITAIRE */
     .action-container {
-        background-color: #eff6ff !important; /* Bleu très clair */
+        background-color: #eff6ff !important;
         border: 2px solid #bfdbfe;
         border-radius: 12px;
         padding: 30px;
@@ -118,7 +106,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 4. MODE D'EMPLOI (TEXTE EXACT DU DOCUMENT)
+# 4. MODE D'EMPLOI
 with st.expander("📖 MODE D'EMPLOI & CONSIGNES (CLIQUEZ POUR LIRE)", expanded=True):
     st.markdown("""
     **Cet outil n'est pas un examen. C'est une boussole.**
@@ -153,7 +141,7 @@ def get_profile_data(score):
                 "**Isolement** : Vous êtes perçu comme « le problème » par le voisinage et la Ville, plutôt que comme un partenaire."
             ],
             "action_titre": "Créez votre premier protocole d'intervention écrit (Gestion des comportements qui dérangent).",
-            "action_why": "Parce que c'est le fondement de tout. Tant que vos équipes d’intervention n'ont pas un cadre clair et partagé, vous resterez en mode réactif. Ce protocole vous permettra de réduire la gestion arbitraire, d'avoir une réponse cohérente et de protéger juridiquement votre organisme.",
+            "action_why": "Parce que c'est le fondement de tout. Tant que vos équipes d’intervention n'ont pas un cadre clair et partagé, vous resterez en mode réactif. Ce protocole vous permettra de réduire la gestion arbitraire des situations problématiques (et donc les frustrations internes), d'avoir une réponse cohérente à donner aux citoyen.ne.s qui se plaignent et de protéger juridiquement votre organisme en cas de litige.",
             "action_how": "Allez lire le **Chapitre 3** de ce Guide : *Principes d'intervention et gestion quotidienne de la cohabitation sociale*. Vous y trouverez un modèle de protocole de gestion des comportements qui dérangent (vert-jaune-rouge) prêt à adapter.",
             "action_time": "Deux (2) à trois (3) réunions d'équipe pour co-créer le protocole, puis formation de deux (2) heures pour l'implanter.",
             "chap_prio1": "<strong>Chapitre 3</strong> : Principes d'intervention et gestion quotidienne de la cohabitation sociale",
@@ -201,10 +189,10 @@ def get_profile_data(score):
                 "**Innovation** : Pourriez-vous tester de nouvelles approches (médiation sociale dédiée, zone tampon élargie, co-construction avec les personnes qui se prévalent des services) ?"
             ],
             "action_titre": "Structurez votre tableau de bord d'impact et utilisez-le comme levier stratégique.",
-            "action_why": "Il vous manque la capacité à démontrer votre valeur ajoutée de manière chiffrée pour obtenir du financement additionnel, influencer les décisions municipales et protéger votre réputation en cas de crise.",
+            "action_why": "Il vous manque la capacité à démontrer votre valeur ajoutée de manière chiffrée pour obtenir du financement additionnel ou le stabiliser, influencer les décisions municipales et provinciales, inspirer d'autres organismes et protéger votre réputation en cas de crise.",
             "action_how": "Allez lire le **Chapitre 8** de ce Guide : *Mesurer votre impact pour durer — Indicateurs et pérennité*. Vous y trouverez un cadre complet pour bâtir un tableau de bord d'impact adapté à la cohabitation sociale.",
             "action_time": "Quatre (4) à six (6) semaines (identification des indicateurs clés, mise en place d'outils de collecte de données, formation de l'équipe, premier rapport d'impact).",
-            "chap_prio1": "<strong>Chapitre 8</strong> (Mesurer votre impact) et <strong>Chapitre 7</strong> (Communication stratégique)",
+            "chap_prio1": "<strong>Chapitre 8</strong> (Mesurer votre impact pour durer) et <strong>Chapitre 7</strong> (Communication stratégique)",
             "chap_prio2": "<strong>Chapitre 6</strong> (Gouvernance et concertation) et <strong>Chapitre 2</strong> (L'implantation stratégique)"
         }
     else:
@@ -225,8 +213,8 @@ def get_profile_data(score):
                 "**Fatigue de l'excellence** : Votre équipe est-elle en risque d’épuisement ou fatigue de compassion à force de vouloir tout faire parfaitement ?"
             ],
             "action_titre": "Documentez vos pratiques exemplaires et partagez-les (devenez une ressource pour le réseau).",
-            "action_why": "Votre prochain levier est de multiplier votre impact en inspirant et en outillant d'autres organismes. Cela renforcera votre légitimité, créera des alliances stratégiques et contribuera à l'amélioration systémique du secteur.",
-            "action_how": "Consultez la **Conclusion** et le **Chapitre 8** (Mesurer votre impact) pour structurer votre démarche de transfert de connaissances. Envisagez de publier des études de cas, d'offrir du mentorat ou de co-animer des formations.",
+            "action_why": "Votre prochain levier est de multiplier votre impact en inspirant et en outillant d'autres organismes. Cela vous permettra de renforcer votre légitimité auprès des bailleurs de fonds, créer des alliances stratégiques, contribuer à l'amélioration systémique du secteur et valoriser votre équipe.",
+            "action_how": "Consultez la **Conclusion** et le **Chapitre 8** (Mesurer votre impact) pour structurer votre démarche de transfert de connaissances. Envisagez de publier des études de cas, d'offrir du mentorat, de co-animer des formations ou de participer à des comités consultatifs.",
             "action_time": "Trois (3) à six (6) mois pour structurer une offre de transfert de connaissances (rédaction de cas, création d'outils, partenariats).",
             "chap_prio1": "<strong>Chapitre 8</strong> (Mesurer votre impact) et <strong>Conclusion</strong> (Vers un urbanisme du lien)",
             "chap_prio2": "<strong>Tous les chapitres</strong> (Pas pour vous-même, mais pour aider d'autres organismes à progresser)"
@@ -373,4 +361,95 @@ with col_stats:
     st.markdown("### 📊 VOS RÉSULTATS")
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("TOTAL", f"{total_score}/48")
-    m2.metric("AXE A
+    m2.metric("AXE A", f"{score_a}/16")
+    m3.metric("AXE B", f"{score_b}/16")
+    m4.metric("AXE C", f"{score_c}/16")
+
+    st.markdown("---")
+    st.markdown(f"**Axe A :** Gouvernance & Protocoles")
+    st.markdown(f"**Axe B :** Opérations & Terrain")
+    st.markdown(f"**Axe C :** Alliances & Partenariats")
+
+with col_radar:
+    # Radar Chart
+    categories = ['Gouvernance', 'Opérations', 'Alliances']
+    values = [score_a, score_b, score_c]
+    
+    fig = go.Figure()
+    fig.add_trace(go.Scatterpolar(
+        r=values,
+        theta=categories,
+        fill='toself',
+        name='Votre Score',
+        line_color='#1e3a8a',
+        fillcolor='rgba(30, 58, 138, 0.2)'
+    ))
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(visible=True, range=[0, 16], showticklabels=False),
+            bgcolor='rgba(0,0,0,0)'
+        ),
+        showlegend=False,
+        margin=dict(t=20, b=20, l=40, r=40),
+        height=250,
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#0f172a")
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+# Section B: Carte Profil
+st.markdown(f"""
+<div class="profile-card {data['css_class']}">
+<h2 style="color:#1e293b; margin-top:0;">{data['nom']}</h2>
+<div style="font-weight:bold; color:#64748b; margin-bottom:15px;">{data['score_txt']}</div>
+<p><strong>🔍 VOTRE RÉALITÉ ACTUELLE</strong><br>{data['intro']}</p>
+</div>
+""", unsafe_allow_html=True)
+
+# Section C: Forces et Risques
+c1, c2 = st.columns(2)
+with c1:
+    st.markdown("### ✅ VOS FORCES")
+    for force in data['forces']:
+        st.markdown(f"- {force}")
+
+with c2:
+    st.markdown("### ⚠️ VOS RISQUES")
+    for risque in data['risques']:
+        st.markdown(f"- {risque}")
+
+# Section D: Action Prioritaire
+st.markdown(f"""
+<div class="action-container">
+<div class="action-badge">🎯 LOW HANGING FRUIT</div>
+<h2 style="color:#b91c1c; margin-top:0;">VOTRE ACTION PRIORITAIRE</h2>
+<p><em>Ne tentez pas de tout refaire. Commencez par UNE SEULE CHOSE :</em></p>
+<h3 style="color:#b91c1c; margin-top:15px;">➜ {data['action_titre']}</h3>
+<div style="margin-top:20px;">
+<strong>POURQUOI ?</strong><br>
+{data['action_why']}
+</div>
+<div style="margin-top:15px;">
+<strong>COMMENT ?</strong><br>
+{data['action_how']}
+</div>
+<div style="margin-top:15px;">
+<strong>⏱️ TEMPS REQUIS</strong><br>
+{data['action_time']}
+</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Section E: Chapitres
+st.markdown("### 📚 CHAPITRES RECOMMANDÉS")
+st.markdown(f"""
+<div class="chapter-box">
+<p>🔥 <strong>Priorité 1 (À lire maintenant) :</strong><br>{data['chap_prio1']}</p>
+<p>📅 <strong>Priorité 2 (Dans les 3-6 mois) :</strong><br>{data['chap_prio2']}</p>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+st.caption("Outil généré pour le Guide de la Cohabitation Sociale.")
+[cite_start]```[cite: 432, 435, 436, 442, 450, 457, 465, 473, 479, 486, 496, 504, 512, 520, 538, 569, 598, 631]
