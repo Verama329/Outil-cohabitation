@@ -258,7 +258,7 @@ def get_profile_data(score):
             ],
             "action_titre": "Documentez vos pratiques exemplaires et partagez-les (devenez une ressource pour le réseau).",
             "action_why": """Votre prochain levier est de multiplier votre impact en inspirant et en outillant d'autres organismes. Cela vous permettra de renforcer votre légitimité auprès des bailleurs de fonds, créer des alliances stratégiques, contribuer à l'amélioration systémique du secteur et valoriser votre équipe.""",
-            "action_how": """Allez lire le **Chapitre 8** (Mesurer votre impact) et la **Conclusion** de ce Guide pour structurer votre démarche de transfert de connaissances. Envisagez de publier des études de cas, d'offrir du mentorat, de co-animer des formations ou de participer à des comités consultatifs.""",
+            "action_how": """Consultez la **Conclusion** et le **Chapitre 8** (Mesurer votre impact) pour structurer votre démarche de transfert de connaissances. Envisagez de publier des études de cas, d'offrir du mentorat, de co-animer des formations ou de participer à des comités consultatifs.""",
             "action_time": "Trois (3) à six (6) mois pour structurer une offre de transfert de connaissances (rédaction de cas, création d'outils, partenariats).",
             "chap_prio1": "<strong>Priorité 1 :</strong> Chapitre 8 (Impact) et Conclusion",
             "chap_prio2": "<strong>Priorité 2 :</strong> Tous les chapitres (Lecture en mode mentorat)"
@@ -277,10 +277,10 @@ with tab1:
     q1 = st.radio(
         "Q1. Votre organisme dispose-t-il d'un protocole écrit de gestion des comportements qui dérangent (violence, menaces, consommation indiscrète importante, etc.) ?",
         [
-            "A. (1 pt) — Réactif : Non, on gère au cas par cas selon l'intervenant.e en poste. Chacun a sa méthode.",
-            "B. (2 pts) — Formel : Oui, on a un code de vie interne affiché, mais il est rarement appliqué de façon constante et cohérente (Tout dépend de qui est en poste).",
-            "C. (3 pts) — Collaboratif : Oui, on a un protocole écrit et l'équipe le connaît. On fait des ajustements réguliers en réunion clinique.",
-            "D. (4 pts) — Systémique : Oui, on a un protocole de gestion des comportements qui dérangent (niveaux vert-jaune-rouge), documenté, appliqué de façon cohérente, et révisé annuellement avec l'équipe."
+            """A. (1 pt) — Réactif : Non, on gère au cas par cas selon l'intervenant.e en poste. Chacun a sa méthode.""",
+            """B. (2 pts) — Formel : Oui, on a un code de vie interne affiché, mais il est rarement appliqué de façon constante et cohérente (Tout dépend de qui est en poste).""",
+            """C. (3 pts) — Collaboratif : Oui, on a un protocole écrit et l'équipe le connaît. On fait des ajustements réguliers en réunion clinique.""",
+            """D. (4 pts) — Systémique : Oui, on a un protocole de gestion des comportements qui dérangent (niveaux vert-jaune-rouge), documenté, appliqué de façon cohérente, et révisé annuellement avec l'équipe."""
         ]
     )
     scores["Q1"] = int(q1.split("pt")[0][-1])
@@ -289,10 +289,10 @@ with tab1:
     q2 = st.radio(
         "Q2. Avez-vous formalisé vos engagements avec le voisinage (pacte, entente, rencontres structurées) ?",
         [
-            "A. (1 pt) — Réactif : Non, on réagit seulement quand il y a une plainte. On n'a pas de contact proactif avec le voisinage.",
-            "B. (2 pts) — Formel : On a eu une rencontre d'information lors de l'ouverture, mais rien de structuré depuis. Les citoyen.ne.s appellent directement la Ville ou l’Arrondissement quand ils.elles sont insatisfait.e.s.",
-            "C. (3 pts) — Collaboratif : On organise des rencontres périodiques (2-4 fois par année) avec un comité de citoyen.ne.s. Le dialogue existe, mais ce n'est pas formalisé par écrit.",
-            "D. (4 pts) — Systémique : On a signé un Pacte de bon voisinage écrit avec des engagements clairs de part et d'autre, des rencontres trimestrielles, et un mécanisme de résolution de conflits défini."
+            """A. (1 pt) — Réactif : Non, on réagit seulement quand il y a une plainte. On n'a pas de contact proactif avec le voisinage.""",
+            """B. (2 pts) — Formel : On a eu une rencontre d'information lors de l'ouverture, mais rien de structuré depuis. Les citoyen.ne.s appellent directement la Ville ou l’Arrondissement quand ils.elles sont insatisfait.e.s.""",
+            """C. (3 pts) — Collaboratif : On organise des rencontres périodiques (2-4 fois par année) avec un comité de citoyen.ne.s. Le dialogue existe, mais ce n'est pas formalisé par écrit.""",
+            """D. (4 pts) — Systémique : On a signé un Pacte de bon voisinage écrit avec des engagements clairs de part et d'autre, des rencontres trimestrielles, et un mécanisme de résolution de conflits défini."""
         ]
     )
     scores["Q2"] = int(q2.split("pt")[0][-1])
@@ -301,10 +301,10 @@ with tab1:
     q3 = st.radio(
         "Q3. Les rôles et responsabilités entre votre organisme, la Ville, le CIUSSS et les autres partenaires impliqués sont-ils clairs et documentés ?",
         [
-            "A. (1 pt) — Réactif : Non, on ne sait pas toujours qui doit faire quoi. On se renvoie souvent la balle entre organismes.",
-            "B. (2 pts) — Formel : On a des ententes de service signées, mais dans les faits, les zones grises créent de la confusion sur le terrain.",
-            "C. (3 pts) — Collaboratif : Les rôles sont relativement clairs. On se parle régulièrement pour ajuster. Ça fonctionne bien grâce aux relations interpersonnelles.",
-            "D. (4 pts) — Systémique : On a un cadre de gouvernance écrit (qui fait quoi, qui décide quoi, qui finance quoi), partagé avec tous les partenaires, et une instance de coordination active."
+            """A. (1 pt) — Réactif : Non, on ne sait pas toujours qui doit faire quoi. On se renvoie souvent la balle entre organismes.""",
+            """B. (2 pts) — Formel : On a des ententes de service signées, mais dans les faits, les zones grises créent de la confusion sur le terrain.""",
+            """C. (3 pts) — Collaboratif : Les rôles sont relativement clairs. On se parle régulièrement pour ajuster. Ça fonctionne bien grâce aux relations interpersonnelles.""",
+            """D. (4 pts) — Systémique : On a un cadre de gouvernance écrit (qui fait quoi, qui décide quoi, qui finance quoi), partagé avec tous les partenaires, et une instance de coordination active."""
         ]
     )
     scores["Q3"] = int(q3.split("pt")[0][-1])
@@ -313,10 +313,10 @@ with tab1:
     q4 = st.radio(
         "Q4. Mesurez-vous l'impact de vos interventions de cohabitation (données, indicateurs, rapports) ?",
         [
-            "A. (1 pt) — Réactif : Non, on n'a pas le temps de compiler des données. On se fie à notre « feeling » terrain.",
-            "B. (2 pts) — Formel : On collecte quelques données (nombre de refus, incidents), mais on ne les analyse pas vraiment ni ne les partage.",
-            "C. (3 pts) — Collaboratif : On suit des indicateurs de base (taux d'occupation, incidents, plaintes du voisinage) et on les présente en réunion d'équipe ou aux directions.",
-            "D. (4 pts) — Systémique : On a un tableau de bord avec des indicateurs clairs (sécurité, propreté, satisfaction voisinage, taux de réintégration), analysés mensuellement, et partagés avec nos bailleurs de fonds/partenaires stratégiques."
+            """A. (1 pt) — Réactif : Non, on n'a pas le temps de compiler des données. On se fie à notre « feeling » terrain.""",
+            """B. (2 pts) — Formel : On collecte quelques données (nombre de refus, incidents), mais on ne les analyse pas vraiment ni ne les partage.""",
+            """C. (3 pts) — Collaboratif : On suit des indicateurs de base (taux d'occupation, incidents, plaintes du voisinage) et on les présente en réunion d'équipe ou aux directions.""",
+            """D. (4 pts) — Systémique : On a un tableau de bord avec des indicateurs clairs (sécurité, propreté, satisfaction voisinage, taux de réintégration), analysés mensuellement, et partagés avec nos bailleurs de fonds/partenaires stratégiques."""
         ]
     )
     scores["Q4"] = int(q4.split("pt")[0][-1])
@@ -328,10 +328,10 @@ with tab2:
     q5 = st.radio(
         "Q5. Comment gérez-vous les crises médiatiques (vidéo virale, article négatif, pression des citoyen.ne.s sur les réseaux sociaux) ?",
         [
-            "A. (1 pt) — Réactif : On subit. On ne sait jamais quoi dire. Souvent, on ne dit rien et on espère que ça passe.",
-            "B. (2 pts) — Formel : On réagit au cas par cas, souvent avec retard. On publie un communiqué générique qui satisfait rarement les gens.",
-            "C. (3 pts) — Collaboratif : On a identifié un porte-parole interne. On prépare des messages-clés adaptés à la situation et on répond rapidement (dans les 24-48h).",
-            "D. (4 pts) — Systémique : On a un plan de communication de crise documenté, avec des messages pré-approuvés, un protocole de gestion des médias sociaux, et une stratégie proactive (on communique AVANT que les problèmes n'explosent)."
+            """A. (1 pt) — Réactif : On subit. On ne sait jamais quoi dire. Souvent, on ne dit rien et on espère que ça passe.""",
+            """B. (2 pts) — Formel : On réagit au cas par cas, souvent avec retard. On publie un communiqué générique qui satisfait rarement les gens.""",
+            """C. (3 pts) — Collaboratif : On a identifié un porte-parole interne. On prépare des messages-clés adaptés à la situation et on répond rapidement (dans les 24-48h).""",
+            """D. (4 pts) — Systémique : On a un plan de communication de crise documenté, avec des messages pré-approuvés, un protocole de gestion des médias sociaux, et une stratégie proactive (on communique AVANT que les problèmes n'explosent)."""
         ]
     )
     scores["Q5"] = int(q5.split("pt")[0][-1])
@@ -340,10 +340,10 @@ with tab2:
     q6 = st.radio(
         "Q6. Vos équipes d’intervention sont-elles formées spécifiquement à la prévention et gestion de la cohabitation sociale (pas juste à l'intervention clinique) ?",
         [
-            "A. (1 pt) — Réactif : Non, on embauche des gens avec de l'expérience en intervention, mais on n'offre pas de formation spécifique sur la cohabitation avec le voisinage.",
-            "B. (2 pts) — Formel : On a fait une formation ponctuelle lors de l'ouverture, mais rien de continu. Les nouvelles recrues apprennent « sur le tas ».",
-            "C. (3 pts) — Collaboratif : On organise des formations internes régulières (désescalade, médiation, gestion des plaintes) et on fait des rétroactions d'incidents en équipe.",
-            "D. (4 pts) — Systémique : Tou.te.s les intervenant.e.s reçoivent une formation structurée en cohabitation sociale (CPTED, réduction des risques, communication non-violente, gestion des comportements qui dérangent), avec des mises à jour annuelles et des supervisions cliniques régulières."
+            """A. (1 pt) — Réactif : Non, on embauche des gens avec de l'expérience en intervention, mais on n'offre pas de formation spécifique sur la cohabitation avec le voisinage.""",
+            """B. (2 pts) — Formel : On a fait une formation ponctuelle lors de l'ouverture, mais rien de continu. Les nouvelles recrues apprennent « sur le tas ».""",
+            """C. (3 pts) — Collaboratif : On organise des formations internes régulières (désescalade, médiation, gestion des plaintes) et on fait des rétroactions d'incidents en équipe.""",
+            """D. (4 pts) — Systémique : Tou.te.s les intervenant.e.s reçoivent une formation structurée en cohabitation sociale (CPTED, réduction des risques, communication non-violente, gestion des comportements qui dérangent), avec des mises à jour annuelles et des supervisions cliniques régulières."""
         ]
     )
     scores["Q6"] = int(q6.split("pt")[0][-1])
@@ -352,10 +352,10 @@ with tab2:
     q7 = st.radio(
         "Q7. Quelle est votre capacité à intervenir HORS de votre bâtiment (parvis, ruelle adjacente, parc à proximité, campement, etc.) ?",
         [
-            "A. (1 pt) — Réactif : On ne sort pas. On gère seulement ce qui se passe à l'intérieur. L'extérieur, ce n’est « pas notre problème ».",
-            "B. (2 pts) — Formel : On sort parfois si un.e citoyen.ne se plaint, mais on n'a pas de protocole clair ni de ressources dédiées.",
-            "C. (3 pts) — Collaboratif : On a des intervenant.e.s qui font des rondes régulières sur le parvis et aux abords immédiats (rayon de 10-20m). On nettoie quotidiennement.",
-            "D. (4 pts) — Systémique : On gère activement une « zone tampon » de 50-100m autour de notre établissement : nettoyage structuré, présence visible, médiation proactive avec les personnes en situation d’itinérance et le voisinage."
+            """A. (1 pt) — Réactif : On ne sort pas. On gère seulement ce qui se passe à l'intérieur. L'extérieur, ce n’est « pas notre problème ».""",
+            """B. (2 pts) — Formel : On sort parfois si un.e citoyen.ne se plaint, mais on n'a pas de protocole clair ni de ressources dédiées.""",
+            """C. (3 pts) — Collaboratif : On a des intervenant.e.s qui font des rondes régulières sur le parvis et aux abords immédiats (rayon de 10-20m). On nettoie quotidiennement.""",
+            """D. (4 pts) — Systémique : On gère activement une « zone tampon » de 50-100m autour de notre établissement : nettoyage structuré, présence visible, médiation proactive avec les personnes en situation d’itinérance et le voisinage."""
         ]
     )
     scores["Q7"] = int(q7.split("pt")[0][-1])
@@ -364,10 +364,10 @@ with tab2:
     q8 = st.radio(
         "Q8. Avez-vous un processus clair pour gérer les pauses de service au sein de votre organisme et les retours après les pauses de service ?",
         [
-            "A. (1 pt) — Réactif : Non, les pauses de service sont décidées de façon arbitraire selon l'humeur de l'équipe d’intervention. Nous n’avons pas de procédure de retour.",
-            "B. (2 pts) — Formel : On exclut quand c'est grave, mais les durées varient beaucoup. Parfois les gens reviennent sans rencontre, parfois il y a une rencontre de réalisée.",
-            "C. (3 pts) — Collaboratif : On a une grille de gradation des conséquences selon la gravité de la situation (violence = X jours). Les retours nécessitent généralement une rencontre avec un.e intervenant.e.",
-            "D. (4 pts) — Systémique : On a un protocole de gestion des comportements qui dérangent (vert-jaune-rouge) avec des durées de pauses de service/conséquences définies selon la gravité de la situation, des rencontres de retour obligatoires, et un suivi documenté dans le dossier clinique."
+            """A. (1 pt) — Réactif : Non, les pauses de service sont décidées de façon arbitraire selon l'humeur de l'équipe d’intervention. Nous n’avons pas de procédure de retour.""",
+            """B. (2 pts) — Formel : On exclut quand c'est grave, mais les durées varient beaucoup. Parfois les gens reviennent sans rencontre, parfois il y a une rencontre de réalisée.""",
+            """C. (3 pts) — Collaboratif : On a une grille de gradation des conséquences selon la gravité de la situation (violence = X jours). Les retours nécessitent généralement une rencontre avec un.e intervenant.e.""",
+            """D. (4 pts) — Systémique : On a un protocole de gestion des comportements qui dérangent (vert-jaune-rouge) avec des durées de pauses de service/conséquences définies selon la gravité de la situation, des rencontres de retour obligatoires, et un suivi documenté dans le dossier clinique."""
         ]
     )
     scores["Q8"] = int(q8.split("pt")[0][-1])
@@ -379,10 +379,10 @@ with tab3:
     q9 = st.radio(
         "Q9. Quelle est la qualité de votre relation avec les services municipaux (police, 311, propreté, urbanisme) ?",
         [
-            "A. (1 pt) — Réactif : On n'a presque pas de contact. Quand on se parle, c'est souvent tendu (ils nous voient comme « le problème ») ou nous les percevons comme des menaces.",
-            "B. (2 pts) — Formel : On se connaît de nom, on s'échange des courriels administratifs, mais il n'y a pas vraiment de collaboration terrain.",
-            "C. (3 pts) — Collaboratif : On a des contacts réguliers et constructifs. On peut appeler le poste de quartier et/ou le responsable municipal quand il y a un enjeu.",
-            "D. (4 pts) — Systémique : On siège à une table de concertation locale avec la Ville, la police communautaire, et d'autres partenaires. On co-construit des solutions et on partage des données."
+            """A. (1 pt) — Réactif : On n'a presque pas de contact. Quand on se parle, c'est souvent tendu (ils nous voient comme « le problème ») ou nous les percevons comme des menaces.""",
+            """B. (2 pts) — Formel : On se connaît de nom, on s'échange des courriels administratifs, mais il n'y a pas vraiment de collaboration terrain.""",
+            """C. (3 pts) — Collaboratif : On a des contacts réguliers et constructifs. On peut appeler le poste de quartier et/ou le responsable municipal quand il y a un enjeu.""",
+            """D. (4 pts) — Systémique : On siège à une table de concertation locale avec la Ville, la police communautaire, et d'autres partenaires. On co-construit des solutions et on partage des données."""
         ]
     )
     scores["Q9"] = int(q9.split("pt")[0][-1])
@@ -391,10 +391,10 @@ with tab3:
     q10 = st.radio(
         "Q10. Collaborez-vous avec d'autres organismes du secteur (refuges, haltes, centres de jour, réseau de la santé) pour gérer collectivement la cohabitation ?",
         [
-            "A. (1 pt) — Réactif : Non, chacun gère son coin. On se voit comme des compétiteurs (pour le financement, pour les personnes qui se prévalent des services, etc.).",
-            "B. (2 pts) — Formel : On se parle occasionnellement, mais chacun travaille en silo. On ne partage pas vraiment d'information ni de stratégie.",
-            "C. (3 pts) — Collaboratif : On participe à une table de concertation locale. On échange sur les situations complexes et on se réfère mutuellement des personnes en situation d’itinérance requérant du soutien.",
-            "D. (4 pts) — Systémique : On fait partie d'un réseau structuré avec des protocoles de collaboration clairs (partage d'informations stratégiques et opérationnelles, gestion des comportements qui dérangent, stratégies communes de cohabitation, financement partagé pour médiation sociale, etc.)."
+            """A. (1 pt) — Réactif : Non, chacun gère son coin. On se voit comme des compétiteurs (pour le financement, pour les personnes qui se prévalent des services, etc.).""",
+            """B. (2 pts) — Formel : On se parle occasionnellement, mais chacun travaille en silo. On ne partage pas vraiment d'information ni de stratégie.""",
+            """C. (3 pts) — Collaboratif : On participe à une table de concertation locale. On échange sur les situations complexes et on se réfère mutuellement des personnes en situation d’itinérance requérant du soutien.""",
+            """D. (4 pts) — Systémique : On fait partie d'un réseau structuré avec des protocoles de collaboration clairs (partage d'informations stratégiques et opérationnelles, gestion des comportements qui dérangent, stratégies communes de cohabitation, financement partagé pour médiation sociale, etc.)."""
         ]
     )
     scores["Q10"] = int(q10.split("pt")[0][-1])
@@ -403,10 +403,10 @@ with tab3:
     q11 = st.radio(
         "Q11. Impliquez-vous les citoyen.ne.s/voisinage de manière constructive (au-delà de « gérer les plaintes ») ?",
         [
-            "A. (1 pt) — Réactif : Non, on évite les citoyen.ne.s. Quand ils appellent, on subit leurs reproches. On n'a pas de stratégie d'engagement.",
-            "B. (2 pts) — Formel : On répond poliment aux plaintes, mais on ne cherche pas à créer une relation proactive avec le voisinage.",
-            "C. (3 pts) — Collaboratif : On organise des rencontres de voisinage 2-3 fois par année. Les citoyen.ne.s peuvent nous poser des questions et on explique notre mission.",
-            "D. (4 pts) — Systémique : On a co-créé un Comité de bon voisinage avec des résident.e.s volontaires. Ils participent à des activités (nettoyage collectif, 5 à 7, portes ouvertes) et deviennent des « ambassadeur.drice.s » de la cohabitation."
+            """A. (1 pt) — Réactif : Non, on évite les citoyen.ne.s. Quand ils appellent, on subit leurs reproches. On n'a pas de stratégie d'engagement.""",
+            """B. (2 pts) — Formel : On répond poliment aux plaintes, mais on ne cherche pas à créer une relation proactive avec le voisinage.""",
+            """C. (3 pts) — Collaboratif : On organise des rencontres de voisinage 2-3 fois par année. Les citoyen.ne.s peuvent nous poser des questions et on explique notre mission.""",
+            """D. (4 pts) — Systémique : On a co-créé un Comité de bon voisinage avec des résident.e.s volontaires. Ils participent à des activités (nettoyage collectif, 5 à 7, portes ouvertes) et deviennent des « ambassadeur.drice.s » de la cohabitation."""
         ]
     )
     scores["Q11"] = int(q11.split("pt")[0][-1])
@@ -415,10 +415,10 @@ with tab3:
     q12 = st.radio(
         "Q12. Avez-vous accès à des ressources de médiation sociale ou de travail de proximité dédiées à la cohabitation (pas juste à l'intervention clinique) ?",
         [
-            "A. (1 pt) — Réactif : Non, nos équipes d’intervention de proximité font tout : clinique + gestion des plaintes + médiation. Elles sont débordées.",
-            "B. (2 pts) — Formel : On aimerait avoir une équipe dédiée à la médiation, mais on n'a pas le budget. On se débrouille avec nos ressources internes.",
-            "C. (3 pts) — Collaboratif : On a parfois accès à un médiateur externe (via la Ville ou un partenaire), mais ce n'est pas systématique ni financé de façon stable.",
-            "D. (4 pts) — Systémique : On a un poste dédié (agent de milieu, médiateur social, intervenant.e de proximité) financé spécifiquement pour gérer la zone tampon et les relations avec le voisinage. C'est distinct et complémentaire de l'intervention clinique."
+            """A. (1 pt) — Réactif : Non, nos équipes d’intervention de proximité font tout : clinique + gestion des plaintes + médiation. Elles sont débordées.""",
+            """B. (2 pts) — Formel : On aimerait avoir une équipe dédiée à la médiation, mais on n'a pas le budget. On se débrouille avec nos ressources internes.""",
+            """C. (3 pts) — Collaboratif : On a parfois accès à un médiateur externe (via la Ville ou un partenaire), mais ce n'est pas systématique ni financé de façon stable.""",
+            """D. (4 pts) — Systémique : On a un poste dédié (agent de milieu, médiateur social, intervenant.e de proximité) financé spécifiquement pour gérer la zone tampon et les relations avec le voisinage. C'est distinct et complémentaire de l'intervention clinique."""
         ]
     )
     scores["Q12"] = int(q12.split("pt")[0][-1])
