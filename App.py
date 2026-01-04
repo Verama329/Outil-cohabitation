@@ -5,38 +5,29 @@ import plotly.graph_objects as go
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Radar Cohabitation", page_icon="🎯", layout="wide")
 
-# 2. CSS AVANCÉ (CORRECTIF COULEURS & CONTRASTE)
+# 2. CSS AVANCÉ (CORRECTIF COULEURS, CONTRASTE & FLUIDITÉ)
 st.markdown("""
 <style>
-    /* 1. FORCER LE FOND BLANC ET TEXTE NOIR (OVERRIDE TOTAL) */
-    .stApp, div[data-testid="stDecoration"], div[data-testid="stSidebar"] {
+    /* FORCER LE FOND BLANC ET TEXTE NOIR PARTOUT (OVERRIDE TOTAL) */
+    .stApp, div[data-testid="stDecoration"], div[data-testid="stSidebar"], section[data-testid="stSidebar"] {
         background-color: #ffffff !important;
         color: #0f172a !important;
     }
     
-    /* 2. TEXTES ET PARAGRAPHES */
+    /* TYPOGRAPHIE */
     h1, h2, h3, h4, h5, h6 {
         color: #1e293b !important; /* Bleu nuit foncé */
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: 700;
     }
-    p, li, div, span, label {
-        color: #334155 !important; /* Gris anthracite */
+    
+    p, li, div, span, label, .stMarkdown {
+        color: #334155 !important; /* Gris anthracite lisible */
         font-size: 1.05rem;
         line-height: 1.6;
     }
-    
-    /* 3. SIDEBAR ET WIDGETS */
-    section[data-testid="stSidebar"] {
-        background-color: #f8fafc !important; /* Gris très pâle */
-        border-right: 1px solid #e2e8f0;
-    }
-    /* Force la couleur des boutons radio (les questions) */
-    .stRadio label p {
-        color: #0f172a !important;
-        font-weight: 500;
-    }
-    
-    /* 4. EN-TÊTE */
+
+    /* EN-TÊTE */
     .header-box {
         background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
         padding: 40px;
@@ -48,7 +39,30 @@ st.markdown("""
     .header-box h1 { color: #ffffff !important; margin: 0; font-size: 2.5rem; }
     .header-box p { color: #e2e8f0 !important; font-size: 1.2rem; margin-top: 10px; }
 
-    /* 5. CARTES DE RÉSULTATS */
+    /* BARRE LATÉRALE (SIDEBAR) */
+    section[data-testid="stSidebar"] {
+        background-color: #f8fafc !important; /* Gris très pâle */
+        border-right: 1px solid #e2e8f0;
+    }
+    /* Force la couleur des boutons radio (les questions) pour être bien noir */
+    .stRadio label p {
+        color: #0f172a !important;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+    div[role="radiogroup"] label {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+    div[role="radiogroup"] label:hover {
+        border-color: #3b82f6;
+        background-color: #eff6ff;
+    }
+
+    /* CARTES DE RÉSULTATS */
     .profile-card {
         background-color: #ffffff;
         border: 1px solid #cbd5e1;
@@ -65,7 +79,7 @@ st.markdown("""
     .border-blue { border-left-color: #2563eb !important; }
     .border-green { border-left-color: #16a34a !important; }
 
-    /* 6. ACTION PRIORITAIRE (CORRECTION DU BUG D'AFFICHAGE) */
+    /* ACTION PRIORITAIRE */
     .action-container {
         background-color: #eff6ff !important; /* Bleu très clair */
         border: 2px solid #bfdbfe;
@@ -84,6 +98,8 @@ st.markdown("""
         display: inline-block;
         margin-bottom: 15px;
     }
+    
+    /* CHAPITRES */
     .chapter-box {
         background-color: #f0fdf4 !important;
         border-left: 5px solid #16a34a;
@@ -102,7 +118,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 4. MODE D'EMPLOI
+# 4. MODE D'EMPLOI (TEXTE EXACT DU DOCUMENT)
 with st.expander("📖 MODE D'EMPLOI & CONSIGNES (CLIQUEZ POUR LIRE)", expanded=True):
     st.markdown("""
     **Cet outil n'est pas un examen. C'est une boussole.**
@@ -117,7 +133,7 @@ with st.expander("📖 MODE D'EMPLOI & CONSIGNES (CLIQUEZ POUR LIRE)", expanded=
     **CONSIGNE :** Pour chaque question, choisissez **la réponse qui reflète le mieux votre réalité actuelle** (pas ce que vous aimeriez avoir, mais ce qui existe vraiment aujourd'hui).
     """)
 
-# 5. CONTENU DES PROFILS (TEXTE SANS INDENTATION POUR ÉVITER LES BUGS)
+# 5. CONTENU DES PROFILS (BASE DE DONNÉES)
 def get_profile_data(score):
     if score <= 24:
         return {
@@ -140,8 +156,8 @@ def get_profile_data(score):
             "action_why": "Parce que c'est le fondement de tout. Tant que vos équipes d’intervention n'ont pas un cadre clair et partagé, vous resterez en mode réactif. Ce protocole vous permettra de réduire la gestion arbitraire, d'avoir une réponse cohérente et de protéger juridiquement votre organisme.",
             "action_how": "Allez lire le **Chapitre 3** de ce Guide : *Principes d'intervention et gestion quotidienne de la cohabitation sociale*. Vous y trouverez un modèle de protocole de gestion des comportements qui dérangent (vert-jaune-rouge) prêt à adapter.",
             "action_time": "Deux (2) à trois (3) réunions d'équipe pour co-créer le protocole, puis formation de deux (2) heures pour l'implanter.",
-            "chap_prio1": "<strong>Chapitre 3</strong> : Principes d'intervention et gestion quotidienne",
-            "chap_prio2": "<strong>Chapitre 1</strong> (Écosystème) et <strong>Chapitre 6</strong> (Gouvernance)"
+            "chap_prio1": "<strong>Chapitre 3</strong> : Principes d'intervention et gestion quotidienne de la cohabitation sociale",
+            "chap_prio2": "<strong>Chapitre 1</strong> (Comprendre l'écosystème) et <strong>Chapitre 6</strong> (Gouvernance et concertation)"
         }
     elif score <= 33:
         return {
@@ -155,24 +171,24 @@ def get_profile_data(score):
                 "Vous documentez certaines de vos interventions"
             ],
             "risques": [
-                "**Rigidité** : Vos protocoles existent, mais ils sont appliqués de façon mécanique. Peu de place pour l'adaptation.",
-                "**Relations tendues avec le voisinage** : Vous gérez les plaintes, mais vous n'avez pas vraiment construit de lien de confiance.",
+                "**Rigidité** : Vos protocoles existent, mais ils sont appliqués de façon mécanique. Peu de place pour l'adaptation ou la désescalade créative.",
+                "**Relations tendues avec le voisinage** : Vous gérez les plaintes, mais vous n'avez pas vraiment construit de lien de confiance avec les citoyen.ne.s.",
                 "**Silos** : Vous fonctionnez en vase clos. Les partenariats sont limités ou ponctuels.",
                 "**Communication défensive** : En cas de crise médiatique, vous réagissez, mais vous ne maîtrisez pas le narratif."
             ],
             "action_titre": "Formalisez vos relations avec le voisinage (créez, entre autres, votre premier Pacte de bon voisinage).",
             "action_why": "Parce que vous avez déjà la structure interne. Ce qui vous manque, c'est le pont vers l'externe. Un Pacte de bon voisinage transforme les plaintes récurrentes en dialogue structuré, et les citoyens méfiants en alliés potentiels.",
-            "action_how": "Allez lire le **Chapitre 4** de ce Guide : *Le rôle des citoyen.ne.s et du voisinage*. Vous y trouverez un modèle complet de Pacte de bon voisinage (clause par clause) prêt à adapter.",
-            "action_time": "Quatre (4) à six (6) semaines (identification, rédaction collaborative, signature).",
-            "chap_prio1": "<strong>Chapitre 4</strong> (Rôle des citoyens) et <strong>Chapitre 5</strong> (Outils)",
-            "chap_prio2": "<strong>Chapitre 7</strong> (Communication) et <strong>Chapitre 6</strong> (Gouvernance)"
+            "action_how": "Allez lire le **Chapitre 4** de ce Guide : *Le rôle des citoyen.ne.s et du voisinage : de la plainte à la collaboration*. Vous y trouverez un modèle complet de Pacte de bon voisinage (clause par clause) prêt à adapter.",
+            "action_time": "Quatre (4) à six (6) semaines (identification des parties prenantes, rédaction collaborative du pacte, signature formelle, première rencontre de suivi).",
+            "chap_prio1": "<strong>Chapitre 4</strong> (Le rôle des citoyen.ne.s) et <strong>Chapitre 5</strong> (Outils à développer)",
+            "chap_prio2": "<strong>Chapitre 7</strong> (Communication stratégique) et <strong>Chapitre 6</strong> (Gouvernance et concertation)"
         }
     elif score <= 42:
         return {
             "nom": "PROFIL 3 : LE PARTENAIRE STRATÉGIQUE",
             "score_txt": "Score : 34 à 42 points",
             "css_class": "border-blue",
-            "intro": "Vous êtes dans le peloton de tête. Vous avez des protocoles solides, des partenariats actifs, et une relation constructive avec le voisinage. Votre organisme est reconnu comme un acteur de solutions. Cependant, vous sentez qu'il reste des angles morts, et vous voulez optimiser.",
+            "intro": "Vous êtes dans le peloton de tête. Vous avez des protocoles solides, des partenariats actifs, et une relation constructive avec le voisinage. Votre organisme est reconnu comme un acteur de solutions, pas comme un « problème ». Cependant, vous sentez qu'il reste des angles morts, et vous voulez optimiser.",
             "forces": [
                 "Protocoles clairs et appliqués de façon cohérente",
                 "Partenariats structurés avec la Ville, les organismes pairs, et le voisinage",
@@ -181,158 +197,163 @@ def get_profile_data(score):
             ],
             "risques": [
                 "**Proactivité vs Réactivité** : Vous gérez bien les crises, mais pourriez-vous les anticiper davantage ?",
-                "**Mesure d'impact** : Vous collectez des données, mais les exploitez-vous stratégiquement pour le financement ?",
-                "**Innovation** : Pourriez-vous tester de nouvelles approches (médiation sociale dédiée, zone tampon élargie) ?"
+                "**Mesure d'impact** : Vous collectez des données, mais les exploitez-vous stratégiquement pour influencer les politiques ou sécuriser du financement ?",
+                "**Innovation** : Pourriez-vous tester de nouvelles approches (médiation sociale dédiée, zone tampon élargie, co-construction avec les personnes qui se prévalent des services) ?"
             ],
             "action_titre": "Structurez votre tableau de bord d'impact et utilisez-le comme levier stratégique.",
-            "action_why": "Il vous manque la capacité à démontrer votre valeur ajoutée de manière chiffrée pour obtenir du financement additionnel, influencer les décisions municipales et protéger votre réputation.",
-            "action_how": "Allez lire le **Chapitre 8** de ce Guide : *Mesurer votre impact pour durer*. Vous y trouverez un cadre complet pour bâtir un tableau de bord.",
-            "action_time": "Quatre (4) à six (6) semaines (choix indicateurs, collecte, premier rapport).",
-            "chap_prio1": "<strong>Chapitre 8</strong> (Mesure d'impact) et <strong>Chapitre 7</strong> (Communication)",
-            "chap_prio2": "<strong>Chapitre 6</strong> (Gouvernance) et <strong>Chapitre 2</strong> (Implantation stratégique)"
+            "action_why": "Il vous manque la capacité à démontrer votre valeur ajoutée de manière chiffrée pour obtenir du financement additionnel, influencer les décisions municipales et protéger votre réputation en cas de crise.",
+            "action_how": "Allez lire le **Chapitre 8** de ce Guide : *Mesurer votre impact pour durer — Indicateurs et pérennité*. Vous y trouverez un cadre complet pour bâtir un tableau de bord d'impact adapté à la cohabitation sociale.",
+            "action_time": "Quatre (4) à six (6) semaines (identification des indicateurs clés, mise en place d'outils de collecte de données, formation de l'équipe, premier rapport d'impact).",
+            "chap_prio1": "<strong>Chapitre 8</strong> (Mesurer votre impact) et <strong>Chapitre 7</strong> (Communication stratégique)",
+            "chap_prio2": "<strong>Chapitre 6</strong> (Gouvernance et concertation) et <strong>Chapitre 2</strong> (L'implantation stratégique)"
         }
     else:
         return {
             "nom": "PROFIL 4 : L'INNOVATEUR SYSTÉMIQUE",
             "score_txt": "Score : 43 à 48 points",
             "css_class": "border-green",
-            "intro": "Vous êtes une référence. Votre organisme fonctionne comme une organisation apprenante : protocoles solides, partenariats stratégiques, mesure d'impact rigoureuse. Vous ne gérez pas juste la cohabitation — vous la co-construisez.",
+            "intro": "Vous êtes une référence. Votre organisme fonctionne comme une organisation apprenante : protocoles solides, partenariats stratégiques, mesure d'impact rigoureuse, communication proactive, implication citoyenne structurée. Vous ne gérez pas juste la cohabitation — vous la co-construisez.",
             "forces": [
-                "Approche préventive et proactive (gestion des risques)",
-                "Partenariats intersectoriels (Ville, CIUSSS, citoyens)",
-                "Innovations terrain (médiation sociale, zone tampon)",
+                "Approche préventive et proactive (vous gérez les risques avant qu'ils ne deviennent des crises)",
+                "Partenariats intersectoriels (Ville, CIUSSS, organismes pairs, citoyens, commerces)",
+                "Innovations terrain (médiation sociale dédiée, zone tampon active, co-construction avec les usagers)",
                 "Influence sur les politiques publiques locales"
             ],
             "risques": [
-                "**Pérennité** : Maintenir l'excellence malgré les changements de personnel/financement.",
-                "**Essaimage** : Transférer vos pratiques sans créer de dépendance.",
-                "**Fatigue de l'excellence** : Risque d’épuisement ou fatigue de compassion de l'équipe."
+                "**Pérennité** : Comment maintenir ce niveau d'excellence malgré les changements de financement, de personnel, ou de contexte politique ?",
+                "**Essaimage** : Comment transférer vos pratiques à d'autres organismes sans créer de dépendance ?",
+                "**Fatigue de l'excellence** : Votre équipe est-elle en risque d’épuisement ou fatigue de compassion à force de vouloir tout faire parfaitement ?"
             ],
             "action_titre": "Documentez vos pratiques exemplaires et partagez-les (devenez une ressource pour le réseau).",
-            "action_why": "Votre prochain levier est de multiplier votre impact en inspirant d'autres organismes. Cela renforcera votre légitimité et contribuera à l'amélioration systémique du secteur.",
-            "action_how": "Consultez la **Conclusion** et le **Chapitre 8**. Envisagez de publier des études de cas, d'offrir du mentorat ou de co-animer des formations.",
-            "action_time": "Trois (3) à six (6) mois pour structurer une offre de transfert de connaissances.",
-            "chap_prio1": "<strong>Chapitre 8</strong> (Mesure d'impact) et <strong>Conclusion</strong>",
-            "chap_prio2": "<strong>Tous les chapitres</strong> (Lecture en mode mentorat)"
+            "action_why": "Votre prochain levier est de multiplier votre impact en inspirant et en outillant d'autres organismes. Cela renforcera votre légitimité, créera des alliances stratégiques et contribuera à l'amélioration systémique du secteur.",
+            "action_how": "Consultez la **Conclusion** et le **Chapitre 8** (Mesurer votre impact) pour structurer votre démarche de transfert de connaissances. Envisagez de publier des études de cas, d'offrir du mentorat ou de co-animer des formations.",
+            "action_time": "Trois (3) à six (6) mois pour structurer une offre de transfert de connaissances (rédaction de cas, création d'outils, partenariats).",
+            "chap_prio1": "<strong>Chapitre 8</strong> (Mesurer votre impact) et <strong>Conclusion</strong> (Vers un urbanisme du lien)",
+            "chap_prio2": "<strong>Tous les chapitres</strong> (Pas pour vous-même, mais pour aider d'autres organismes à progresser)"
         }
 
-# 6. SIDEBAR : QUESTIONNAIRE
+# 6. SIDEBAR : QUESTIONNAIRE (TEXTE 100% IDENTIQUE AU DOCUMENT)
+
 st.sidebar.header("QUESTIONNAIRE")
-st.sidebar.info("Veuillez répondre aux 12 questions.")
-st.sidebar.markdown("### AXE A : GOUVERNANCE")
+st.sidebar.info("Veuillez répondre aux 12 questions ci-dessous.")
+
+st.sidebar.markdown("### AXE A : GOUVERNANCE & PROTOCOLES")
+st.sidebar.markdown("_« Est-ce que c'est écrit, clair et appliqué ? »_")
 
 opt_q1 = [
     "A. (1 pt) — Réactif : Non, on gère au cas par cas selon l'intervenant.e en poste. Chacun a sa méthode.",
-    "B. (2 pts) — Formel : Oui, on a un code de vie interne affiché, mais il est rarement appliqué de façon constante.",
-    "C. (3 pts) — Collaboratif : Oui, on a un protocole écrit et l'équipe le connaît. Ajustements réguliers.",
-    "D. (4 pts) — Systémique : Oui, protocole documenté (vert-jaune-rouge), appliqué et révisé annuellement."
+    "B. (2 pts) — Formel : Oui, on a un code de vie interne affiché, mais il est rarement appliqué de façon constante et cohérente (Tout dépend de qui est en poste).",
+    "C. (3 pts) — Collaboratif : Oui, on a un protocole écrit et l'équipe le connaît. On fait des ajustements réguliers en réunion clinique.",
+    "D. (4 pts) — Systémique : Oui, on a un protocole de gestion des comportements qui dérangent (niveaux vert-jaune-rouge), documenté, appliqué de façon cohérente, et révisé annuellement avec l'équipe."
 ]
-q1_sel = st.sidebar.radio("Q1. Protocole de gestion des comportements qui dérangent ?", opt_q1)
+q1_sel = st.sidebar.radio("Q1. Votre organisme dispose-t-il d'un protocole écrit de gestion des comportements qui dérangent (violence, menaces, consommation indiscrète importante, etc.) ?", opt_q1)
 s1 = opt_q1.index(q1_sel) + 1
 
 opt_q2 = [
-    "A. (1 pt) — Réactif : Non, on réagit seulement quand il y a une plainte.",
-    "B. (2 pts) — Formel : Rencontre à l'ouverture, rien depuis. Les citoyens appellent la Ville.",
-    "C. (3 pts) — Collaboratif : Rencontres périodiques (2-4 fois/an) avec un comité, mais non formalisé.",
-    "D. (4 pts) — Systémique : Pacte de bon voisinage signé, rencontres trimestrielles et résolution de conflits."
+    "A. (1 pt) — Réactif : Non, on réagit seulement quand il y a une plainte. On n'a pas de contact proactif avec le voisinage.",
+    "B. (2 pts) — Formel : On a eu une rencontre d'information lors de l'ouverture, mais rien de structuré depuis. Les citoyen.ne.s appellent directement la Ville ou l’Arrondissement quand ils.elles sont insatisfait.e.s.",
+    "C. (3 pts) — Collaboratif : On organise des rencontres périodiques (2-4 fois par année) avec un comité de citoyen.ne.s. Le dialogue existe, mais ce n'est pas formalisé par écrit.",
+    "D. (4 pts) — Systémique : On a signé un Pacte de bon voisinage écrit avec des engagements clairs de part et d'autre, des rencontres trimestrielles, et un mécanisme de résolution de conflits défini."
 ]
-q2_sel = st.sidebar.radio("Q2. Engagements avec le voisinage ?", opt_q2)
+q2_sel = st.sidebar.radio("Q2. Avez-vous formalisé vos engagements avec le voisinage (pacte, entente, rencontres structurées) ?", opt_q2)
 s2 = opt_q2.index(q2_sel) + 1
 
 opt_q3 = [
-    "A. (1 pt) — Réactif : Non, on ne sait pas toujours qui doit faire quoi. Confusion.",
-    "B. (2 pts) — Formel : Ententes signées, mais zones grises sur le terrain.",
-    "C. (3 pts) — Collaboratif : Rôles relativement clairs, ajustements réguliers.",
-    "D. (4 pts) — Systémique : Cadre de gouvernance écrit (qui fait quoi/finance quoi) et coordination active."
+    "A. (1 pt) — Réactif : Non, on ne sait pas toujours qui doit faire quoi. On se renvoie souvent la balle entre organismes.",
+    "B. (2 pts) — Formel : On a des ententes de service signées, mais dans les faits, les zones grises créent de la confusion sur le terrain.",
+    "C. (3 pts) — Collaboratif : Les rôles sont relativement clairs. On se parle régulièrement pour ajuster. Ça fonctionne bien grâce aux relations interpersonnelles.",
+    "D. (4 pts) — Systémique : On a un cadre de gouvernance écrit (qui fait quoi, qui décide quoi, qui finance quoi), partagé avec tous les partenaires, et une instance de coordination active."
 ]
-q3_sel = st.sidebar.radio("Q3. Rôles et responsabilités (Ville/Partenaires) ?", opt_q3)
+q3_sel = st.sidebar.radio("Q3. Les rôles et responsabilités entre votre organisme, la Ville, le CIUSSS et les autres partenaires impliqués sont-ils clairs et documentés ?", opt_q3)
 s3 = opt_q3.index(q3_sel) + 1
 
 opt_q4 = [
-    "A. (1 pt) — Réactif : Non, pas de temps. On se fie au « feeling ».",
-    "B. (2 pts) — Formel : Collecte de quelques données, mais peu d'analyse.",
-    "C. (3 pts) — Collaboratif : Indicateurs de base suivis et présentés en équipe.",
-    "D. (4 pts) — Systémique : Tableau de bord clair (sécurité, propreté, etc.) analysé et partagé."
+    "A. (1 pt) — Réactif : Non, on n'a pas le temps de compiler des données. On se fie à notre « feeling » terrain.",
+    "B. (2 pts) — Formel : On collecte quelques données (nombre de refus, incidents), mais on ne les analyse pas vraiment ni ne les partage.",
+    "C. (3 pts) — Collaboratif : On suit des indicateurs de base (taux d'occupation, incidents, plaintes du voisinage) et on les présente en réunion d'équipe ou aux directions.",
+    "D. (4 pts) — Systémique : On a un tableau de bord avec des indicateurs clairs (sécurité, propreté, satisfaction voisinage, taux de réintégration), analysés mensuellement, et partagés avec nos bailleurs de fonds/partenaires stratégiques."
 ]
-q4_sel = st.sidebar.radio("Q4. Mesure d'impact ?", opt_q4)
+q4_sel = st.sidebar.radio("Q4. Mesurez-vous l'impact de vos interventions de cohabitation (données, indicateurs, rapports) ?", opt_q4)
 s4 = opt_q4.index(q4_sel) + 1
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("### AXE B : OPÉRATIONS")
+st.sidebar.markdown("### AXE B : OPÉRATIONS & TERRAIN")
+st.sidebar.markdown("_« Comment on réagit concrètement aux situations de crise ? »_")
 
 opt_q5 = [
-    "A. (1 pt) — Réactif : On subit. Souvent on ne dit rien.",
-    "B. (2 pts) — Formel : Réaction au cas par cas, tardive, communiqué générique.",
-    "C. (3 pts) — Collaboratif : Porte-parole identifié, messages-clés, réponse rapide.",
-    "D. (4 pts) — Systémique : Plan de communication de crise documenté et stratégie proactive."
+    "A. (1 pt) — Réactif : On subit. On ne sait jamais quoi dire. Souvent, on ne dit rien et on espère que ça passe.",
+    "B. (2 pts) — Formel : On réagit au cas par cas, souvent avec retard. On publie un communiqué générique qui satisfait rarement les gens.",
+    "C. (3 pts) — Collaboratif : On a identifié un porte-parole interne. On prépare des messages-clés adaptés à la situation et on répond rapidement (dans les 24-48h).",
+    "D. (4 pts) — Systémique : On a un plan de communication de crise documenté, avec des messages pré-approuvés, un protocole de gestion des médias sociaux, et une stratégie proactive (on communique AVANT que les problèmes n'explosent)."
 ]
-q5_sel = st.sidebar.radio("Q5. Gestion des crises médiatiques ?", opt_q5)
+q5_sel = st.sidebar.radio("Q5. Comment gérez-vous les crises médiatiques (vidéo virale, article négatif, pression des citoyen.ne.s sur les réseaux sociaux) ?", opt_q5)
 s5 = opt_q5.index(q5_sel) + 1
 
 opt_q6 = [
-    "A. (1 pt) — Réactif : Non, pas de formation spécifique sur la cohabitation.",
-    "B. (2 pts) — Formel : Formation ponctuelle à l'ouverture, rien de continu.",
-    "C. (3 pts) — Collaboratif : Formations internes régulières et rétroactions.",
-    "D. (4 pts) — Systémique : Formation structurée pour tou.te.s (CPTED, CNV, etc.) et mises à jour."
+    "A. (1 pt) — Réactif : Non, on embauche des gens avec de l'expérience en intervention, mais on n'offre pas de formation spécifique sur la cohabitation avec le voisinage.",
+    "B. (2 pts) — Formel : On a fait une formation ponctuelle lors de l'ouverture, mais rien de continu. Les nouvelles recrues apprennent « sur le tas ».",
+    "C. (3 pts) — Collaboratif : On organise des formations internes régulières (désescalade, médiation, gestion des plaintes) et on fait des rétroactions d'incidents en équipe.",
+    "D. (4 pts) — Systémique : Tou.te.s les intervenant.e.s reçoivent une formation structurée en cohabitation sociale (CPTED, réduction des risques, communication non-violente, gestion des comportements qui dérangent), avec des mises à jour annuelles et des supervisions cliniques régulières."
 ]
-q6_sel = st.sidebar.radio("Q6. Formation des équipes ?", opt_q6)
+q6_sel = st.sidebar.radio("Q6. Vos équipes d’intervention sont-elles formées spécifiquement à la prévention et gestion de la cohabitation sociale (pas juste à l'intervention clinique) ?", opt_q6)
 s6 = opt_q6.index(q6_sel) + 1
 
 opt_q7 = [
-    "A. (1 pt) — Réactif : On ne sort pas. L'extérieur n'est « pas notre problème ».",
-    "B. (2 pts) — Formel : Sorties ponctuelles sur plainte, sans protocole.",
-    "C. (3 pts) — Collaboratif : Rondes régulières aux abords immédiats (10-20m).",
-    "D. (4 pts) — Systémique : Gestion active d'une « zone tampon » (50-100m), présence visible."
+    "A. (1 pt) — Réactif : On ne sort pas. On gère seulement ce qui se passe à l'intérieur. L'extérieur, ce n’est « pas notre problème ».",
+    "B. (2 pts) — Formel : On sort parfois si un.e citoyen.ne se plaint, mais on n'a pas de protocole clair ni de ressources dédiées.",
+    "C. (3 pts) — Collaboratif : On a des intervenant.e.s qui font des rondes régulières sur le parvis et aux abords immédiats (rayon de 10-20m). On nettoie quotidiennement.",
+    "D. (4 pts) — Systémique : On gère activement une « zone tampon » de 50-100m autour de notre établissement : nettoyage structuré, présence visible, médiation proactive avec les personnes en situation d’itinérance et le voisinage."
 ]
-q7_sel = st.sidebar.radio("Q7. Intervention HORS les murs ?", opt_q7)
+q7_sel = st.sidebar.radio("Q7. Quelle est votre capacité à intervenir HORS de votre bâtiment (parvis, ruelle adjacente, parc à proximité, campement, etc.) ?", opt_q7)
 s7 = opt_q7.index(q7_sel) + 1
 
 opt_q8 = [
-    "A. (1 pt) — Réactif : Arbitraire, selon l'humeur. Pas de procédure de retour.",
-    "B. (2 pts) — Formel : Variable. Parfois rencontre au retour, parfois non.",
-    "C. (3 pts) — Collaboratif : Grille de gradation selon la gravité. Rencontre généralement faite.",
-    "D. (4 pts) — Systémique : Protocole (vert-jaune-rouge), durées définies, retour obligatoire, suivi documenté."
+    "A. (1 pt) — Réactif : Non, les pauses de service sont décidées de façon arbitraire selon l'humeur de l'équipe d’intervention. Nous n’avons pas de procédure de retour.",
+    "B. (2 pts) — Formel : On exclut quand c'est grave, mais les durées varient beaucoup. Parfois les gens reviennent sans rencontre, parfois il y a une rencontre de réalisée.",
+    "C. (3 pts) — Collaboratif : On a une grille de gradation des conséquences selon la gravité de la situation (violence = X jours). Les retours nécessitent généralement une rencontre avec un.e intervenant.e.",
+    "D. (4 pts) — Systémique : On a un protocole de gestion des comportements qui dérangent (vert-jaune-rouge) avec des durées de pauses de service/conséquences définies selon la gravité de la situation, des rencontres de retour obligatoires, et un suivi documenté dans le dossier clinique."
 ]
-q8_sel = st.sidebar.radio("Q8. Gestion des pauses de service/exclusions ?", opt_q8)
+q8_sel = st.sidebar.radio("Q8. Avez-vous un processus clair pour gérer les pauses de service au sein de votre organisme et les retours après les pauses de service ?", opt_q8)
 s8 = opt_q8.index(q8_sel) + 1
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("### AXE C : ALLIANCES")
+st.sidebar.markdown("### AXE C : ALLIANCES & PARTENARIATS")
+st.sidebar.markdown("_« Travaille-t-on seul ou en réseau ? »_")
 
 opt_q9 = [
-    "A. (1 pt) — Réactif : Presque pas de contact. Relations tendues.",
-    "B. (2 pts) — Formel : Courriels administratifs, pas de collaboration terrain.",
-    "C. (3 pts) — Collaboratif : Contacts réguliers et constructifs.",
-    "D. (4 pts) — Systémique : Table de concertation locale, co-construction de solutions."
+    "A. (1 pt) — Réactif : On n'a presque pas de contact. Quand on se parle, c'est souvent tendu (ils nous voient comme « le problème ») ou nous les percevons comme des menaces.",
+    "B. (2 pts) — Formel : On se connaît de nom, on s'échange des courriels administratifs, mais il n'y a pas vraiment de collaboration terrain.",
+    "C. (3 pts) — Collaboratif : On a des contacts réguliers et constructifs. On peut appeler le poste de quartier et/ou le responsable municipal quand il y a un enjeu.",
+    "D. (4 pts) — Systémique : On siège à une table de concertation locale avec la Ville, la police communautaire, et d'autres partenaires. On co-construit des solutions et on partage des données."
 ]
-q9_sel = st.sidebar.radio("Q9. Relations services municipaux ?", opt_q9)
+q9_sel = st.sidebar.radio("Q9. Quelle est la qualité de votre relation avec les services municipaux (police, 311, propreté, urbanisme) ?", opt_q9)
 s9 = opt_q9.index(q9_sel) + 1
 
 opt_q10 = [
-    "A. (1 pt) — Réactif : Non, chacun gère son coin. Compétition.",
-    "B. (2 pts) — Formel : Occasionnel, mais travail en silo.",
-    "C. (3 pts) — Collaboratif : Table de concertation, échange sur situations complexes.",
-    "D. (4 pts) — Systémique : Réseau structuré, protocoles clairs, stratégies communes."
+    "A. (1 pt) — Réactif : Non, chacun gère son coin. On se voit comme des compétiteurs (pour le financement, pour les personnes qui se prévalent des services, etc.).",
+    "B. (2 pts) — Formel : On se parle occasionnellement, mais chacun travaille en silo. On ne partage pas vraiment d'information ni de stratégie.",
+    "C. (3 pts) — Collaboratif : On participe à une table de concertation locale. On échange sur les situations complexes et on se réfère mutuellement des personnes en situation d’itinérance requérant du soutien.",
+    "D. (4 pts) — Systémique : On fait partie d'un réseau structuré avec des protocoles de collaboration clairs (partage d'informations stratégiques et opérationnelles, gestion des comportements qui dérangent, stratégies communes de cohabitation, financement partagé pour médiation sociale, etc.)."
 ]
-q10_sel = st.sidebar.radio("Q10. Collaboration organismes du secteur ?", opt_q10)
+q10_sel = st.sidebar.radio("Q10. Collaborez-vous avec d'autres organismes du secteur (refuges, haltes, centres de jour, réseau de la santé) pour gérer collectivement la cohabitation ?", opt_q10)
 s10 = opt_q10.index(q10_sel) + 1
 
 opt_q11 = [
-    "A. (1 pt) — Réactif : Évitement. On subit les reproches.",
-    "B. (2 pts) — Formel : Réponses polies aux plaintes, pas de proactivité.",
-    "C. (3 pts) — Collaboratif : Rencontres de voisinage 2-3 fois/an.",
-    "D. (4 pts) — Systémique : Comité de bon voisinage co-créé, ambassadeurs."
+    "A. (1 pt) — Réactif : Non, on évite les citoyen.ne.s. Quand ils appellent, on subit leurs reproches. On n'a pas de stratégie d'engagement.",
+    "B. (2 pts) — Formel : On répond poliment aux plaintes, mais on ne cherche pas à créer une relation proactive avec le voisinage.",
+    "C. (3 pts) — Collaboratif : On organise des rencontres de voisinage 2-3 fois par année. Les citoyen.ne.s peuvent nous poser des questions et on explique notre mission.",
+    "D. (4 pts) — Systémique : On a co-créé un Comité de bon voisinage avec des résident.e.s volontaires. Ils participent à des activités (nettoyage collectif, 5 à 7, portes ouvertes) et deviennent des « ambassadeur.drice.s » de la cohabitation."
 ]
-q11_sel = st.sidebar.radio("Q11. Implication citoyenne ?", opt_q11)
+q11_sel = st.sidebar.radio("Q11. Impliquez-vous les citoyen.ne.s/voisinage de manière constructive (au-delà de « gérer les plaintes ») ?", opt_q11)
 s11 = opt_q11.index(q11_sel) + 1
 
 opt_q12 = [
-    "A. (1 pt) — Réactif : Non, les équipes font tout (clinique + médiation). Débordées.",
-    "B. (2 pts) — Formel : On aimerait, mais pas de budget.",
-    "C. (3 pts) — Collaboratif : Parfois médiateur externe, mais non systématique.",
-    "D. (4 pts) — Systémique : Poste dédié financé (agent de milieu/médiateur)."
+    "A. (1 pt) — Réactif : Non, nos équipes d’intervention de proximité font tout : clinique + gestion des plaintes + médiation. Elles sont débordées.",
+    "B. (2 pts) — Formel : On aimerait avoir une équipe dédiée à la médiation, mais on n'a pas le budget. On se débrouille avec nos ressources internes.",
+    "C. (3 pts) — Collaboratif : On a parfois accès à un médiateur externe (via la Ville ou un partenaire), mais ce n'est pas systématique ni financé de façon stable.",
+    "D. (4 pts) — Systémique : On a un poste dédié (agent de milieu, médiateur social, intervenant.e de proximité) financé spécifiquement pour gérer la zone tampon et les relations avec le voisinage. C'est distinct et complémentaire de l'intervention clinique."
 ]
-q12_sel = st.sidebar.radio("Q12. Médiation sociale dédiée ?", opt_q12)
+q12_sel = st.sidebar.radio("Q12. Avez-vous accès à des ressources de médiation sociale ou de travail de proximité dédiées à la cohabitation (pas juste à l'intervention clinique) ?", opt_q12)
 s12 = opt_q12.index(q12_sel) + 1
 
 # 7. CALCULS
@@ -352,94 +373,4 @@ with col_stats:
     st.markdown("### 📊 VOS RÉSULTATS")
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("TOTAL", f"{total_score}/48")
-    m2.metric("AXE A", f"{score_a}/16")
-    m3.metric("AXE B", f"{score_b}/16")
-    m4.metric("AXE C", f"{score_c}/16")
-
-    st.markdown("---")
-    st.markdown(f"**Axe A :** Gouvernance & Protocoles")
-    st.markdown(f"**Axe B :** Opérations & Terrain")
-    st.markdown(f"**Axe C :** Alliances & Partenariats")
-
-with col_radar:
-    # Radar Chart
-    categories = ['Gouvernance', 'Opérations', 'Alliances']
-    values = [score_a, score_b, score_c]
-    
-    fig = go.Figure()
-    fig.add_trace(go.Scatterpolar(
-        r=values,
-        theta=categories,
-        fill='toself',
-        name='Votre Score',
-        line_color='#1e3a8a',
-        fillcolor='rgba(30, 58, 138, 0.2)'
-    ))
-    fig.update_layout(
-        polar=dict(
-            radialaxis=dict(visible=True, range=[0, 16], showticklabels=False),
-            bgcolor='rgba(0,0,0,0)'
-        ),
-        showlegend=False,
-        margin=dict(t=20, b=20, l=40, r=40),
-        height=250,
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#0f172a")
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-# Section B: Carte Profil (CORRIGÉ : PAS D'INDENTATION POUR ÉVITER LE CODE BLOCK)
-st.markdown(f"""
-<div class="profile-card {data['css_class']}">
-<h2 style="color:#1e293b; margin-top:0;">{data['nom']}</h2>
-<div style="font-weight:bold; color:#64748b; margin-bottom:15px;">{data['score_txt']}</div>
-<p><strong>🔍 VOTRE RÉALITÉ ACTUELLE</strong><br>{data['intro']}</p>
-</div>
-""", unsafe_allow_html=True)
-
-# Section C: Forces et Risques
-c1, c2 = st.columns(2)
-with c1:
-    st.markdown("### ✅ VOS FORCES")
-    for force in data['forces']:
-        st.markdown(f"- {force}")
-
-with c2:
-    st.markdown("### ⚠️ VOS RISQUES")
-    for risque in data['risques']:
-        st.markdown(f"- {risque}")
-
-# Section D: Action Prioritaire (CORRIGÉ : PAS D'INDENTATION)
-st.markdown(f"""
-<div class="action-container">
-<div class="action-badge">🎯 LOW HANGING FRUIT</div>
-<h2 style="color:#b91c1c; margin-top:0;">VOTRE ACTION PRIORITAIRE</h2>
-<p><em>Ne tentez pas de tout refaire. Commencez par UNE SEULE CHOSE :</em></p>
-<h3 style="color:#b91c1c; margin-top:15px;">➜ {data['action_titre']}</h3>
-<div style="margin-top:20px;">
-<strong>POURQUOI ?</strong><br>
-{data['action_why']}
-</div>
-<div style="margin-top:15px;">
-<strong>COMMENT ?</strong><br>
-{data['action_how']}
-</div>
-<div style="margin-top:15px;">
-<strong>⏱️ TEMPS REQUIS</strong><br>
-{data['action_time']}
-</div>
-</div>
-""", unsafe_allow_html=True)
-
-# Section E: Chapitres
-st.markdown("### 📚 CHAPITRES RECOMMANDÉS")
-st.markdown(f"""
-<div class="chapter-box">
-<p>🔥 <strong>Priorité 1 (À lire maintenant) :</strong><br>{data['chap_prio1']}</p>
-<p>📅 <strong>Priorité 2 (Dans les 3-6 mois) :</strong><br>{data['chap_prio2']}</p>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("---")
-st.caption("Outil généré pour le Guide de la Cohabitation Sociale.")
+    m2.metric("AXE A
