@@ -7,7 +7,7 @@ from datetime import datetime
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Radar Cohabitation", page_icon="🎯", layout="wide")
 
-# 2. CSS AVANCÉ (DESIGN PROPRE & RAPPORT IMPRIMABLE)
+# 2. CSS AVANCÉ (DESIGN PROPRE & LISIBILITÉ)
 st.markdown("""
 <style>
     /* FORCER LE FOND BLANC */
@@ -21,9 +21,10 @@ st.markdown("""
         color: #1e293b !important;
         font-family: 'Helvetica Neue', sans-serif;
     }
-    p, div, label {
+    p, div, label, li {
         color: #334155 !important;
         font-size: 1.05rem;
+        line-height: 1.6;
     }
 
     /* HEADER */
@@ -38,7 +39,7 @@ st.markdown("""
     .header-box h1 { color: white !important; margin: 0; }
     .header-box p { color: #e2e8f0 !important; }
 
-    /* ZONE DES QUESTIONS (STYLES DES ONGLETS) */
+    /* ONGLETS DE NAVIGATION (QUESTIONS) */
     .stTabs [data-baseweb="tab-list"] {
         gap: 10px;
     }
@@ -58,7 +59,7 @@ st.markdown("""
 
     /* CARTES RÉSULTATS */
     .result-card {
-        padding: 20px;
+        padding: 25px;
         border-radius: 10px;
         border: 1px solid #e2e8f0;
         background-color: #f8fafc;
@@ -70,7 +71,7 @@ st.markdown("""
     .border-blue { border-left-color: #2563eb !important; background-color: #eff6ff !important; }
     .border-green { border-left-color: #16a34a !important; background-color: #f0fdf4 !important; }
 
-    /* ACTION PRIORITAIRE (SANS BADGE ROUGE) */
+    /* ACTION PRIORITAIRE (ÉPURÉE) */
     .action-box {
         background-color: #ffffff;
         border: 2px solid #cbd5e1;
@@ -84,9 +85,11 @@ st.markdown("""
         font-size: 1.5rem;
         font-weight: 700;
         margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
     }
 
-    /* CACHER L'ICON GITHUB/MENU STREAMLIT POUR FAIRE PRO */
+    /* CACHER L'ICON GITHUB/MENU STREAMLIT */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 </style>
@@ -100,9 +103,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 4. FONCTION POUR GÉNÉRER LE RAPPORT HTML (FAUX PDF)
+# 4. FONCTION POUR GÉNÉRER LE RAPPORT (HTML/PDF)
 def create_download_link(content_dict, total_score):
-    # Création d'un HTML propre pour l'impression
     html_content = f"""
     <html>
     <head>
@@ -161,16 +163,16 @@ def create_download_link(content_dict, total_score):
     </html>
     """
     b64 = base64.b64encode(html_content.encode()).decode()
-    return f'<a href="data:text/html;base64,{b64}" download="Rapport_Cohabitation.html" style="background-color:#2563eb; color:white; padding:10px 20px; text-decoration:none; border-radius:5px; font-weight:bold;">📥 TÉLÉCHARGER VOS RÉSULTATS (Format Impression/PDF)</a>'
+    return f'<a href="data:text/html;base64,{b64}" download="Rapport_Cohabitation.html" style="background-color:#2563eb; color:white; padding:12px 25px; text-decoration:none; border-radius:5px; font-weight:bold; display:inline-block; margin-top:10px;">📥 TÉLÉCHARGER VOS RÉSULTATS (PDF/Impression)</a>'
 
-# 5. DONNÉES TEXTUELLES (100% IDENTIQUE WORD)
+# 5. BASE DE DONNÉES TEXTUELLE (TRIPLES GUILLEMETS POUR ÉVITER LES BUGS)
 def get_profile_data(score):
     if score <= 24:
         return {
             "nom": "PROFIL 1 : LE POMPIER SOLITAIRE",
             "score_txt": "Score : 12 à 24 points",
             "css_class": "border-red",
-            "intro": "Vous êtes en mode survie. Votre équipe gère au jour le jour, sans protocoles formalisés, avec peu ou pas de collaboration structurée avec le voisinage ou les partenaires externes. Les crises éclatent, vous réagissez, et vous recommencez le lendemain.",
+            "intro": """Vous êtes en mode survie. Votre équipe gère au jour le jour, sans protocoles formalisés, avec peu ou pas de collaboration structurée avec le voisinage ou les partenaires externes. Les crises éclatent, vous réagissez, et vous recommencez le lendemain.""",
             "forces": [
                 "Vous êtes sur le terrain, proche des personnes qui se prévalent des services",
                 "Vous faites preuve de résilience et d'adaptation constante",
@@ -183,8 +185,8 @@ def get_profile_data(score):
                 "**Isolement** : Vous êtes perçu comme « le problème » par le voisinage et la Ville, plutôt que comme un partenaire."
             ],
             "action_titre": "Créez votre premier protocole d'intervention écrit (Gestion des comportements qui dérangent).",
-            "action_why": "Parce que c'est le fondement de tout. Tant que vos équipes d’intervention n'ont pas un cadre clair et partagé, vous resterez en mode réactif. Ce protocole vous permettra de réduire la gestion arbitraire des situations problématiques (et donc les frustrations internes), d'avoir une réponse cohérente à donner aux citoyen.ne.s qui se plaignent et de protéger juridiquement votre organisme en cas de litige.",
-            "action_how": "Allez lire le **Chapitre 3** de ce Guide : *Principes d'intervention et gestion quotidienne de la cohabitation sociale*. Vous y trouverez un modèle de protocole de gestion des comportements qui dérangent (vert-jaune-rouge) prêt à adapter.",
+            "action_why": """Parce que c'est le fondement de tout. Tant que vos équipes d’intervention n'ont pas un cadre clair et partagé, vous resterez en mode réactif. Ce protocole vous permettra de réduire la gestion arbitraire des situations problématiques (et donc les frustrations internes), d'avoir une réponse cohérente à donner aux citoyen.ne.s qui se plaignent et de protéger juridiquement votre organisme en cas de litige.""",
+            "action_how": """Allez lire le **Chapitre 3** de ce Guide : *Principes d'intervention et gestion quotidienne de la cohabitation sociale*. Vous y trouverez un modèle de protocole de gestion des comportements qui dérangent (vert-jaune-rouge) prêt à adapter.""",
             "action_time": "Deux (2) à trois (3) réunions d'équipe pour co-créer le protocole, puis formation de deux (2) heures pour l'implanter.",
             "chap_prio1": "<strong>Priorité 1 :</strong> Chapitre 3 (Principes d'intervention et gestion quotidienne)",
             "chap_prio2": "<strong>Priorité 2 :</strong> Chapitre 1 (Écosystème) et Chapitre 6 (Gouvernance)"
@@ -194,7 +196,7 @@ def get_profile_data(score):
             "nom": "PROFIL 2 : LE GESTIONNAIRE STRUCTURÉ",
             "score_txt": "Score : 25 à 33 points",
             "css_class": "border-orange",
-            "intro": "Vous avez posé des bases solides. Vous avez des protocoles écrits, des règles claires, et une certaine organisation interne. Cependant, l'application reste inégale, les partenariats sont informels, et vous sentez que votre approche pourrait être plus fluide et collaborative.",
+            "intro": """Vous avez posé des bases solides. Vous avez des protocoles écrits, des règles claires, et une certaine organisation interne. Cependant, l'application reste inégale, les partenariats sont informels, et vous sentez que votre approche pourrait être plus fluide et collaborative.""",
             "forces": [
                 "Vous avez des outils et des procédures (règlements, protocoles de base)",
                 "Votre équipe connaît les attentes minimales",
@@ -207,8 +209,8 @@ def get_profile_data(score):
                 "**Communication défensive** : En cas de crise médiatique, vous réagissez, mais vous ne maîtrisez pas le narratif."
             ],
             "action_titre": "Formalisez vos relations avec le voisinage (créez, entre autres, votre premier Pacte de bon voisinage).",
-            "action_why": "Parce que vous avez déjà la structure interne. Ce qui vous manque, c'est le pont vers l'externe. Un Pacte de bon voisinage transforme les plaintes récurrentes en dialogue structuré, et les citoyens méfiants en alliés potentiels.",
-            "action_how": "Allez lire le **Chapitre 4** de ce Guide : *Le rôle des citoyen.ne.s et du voisinage : de la plainte à la collaboration*. Vous y trouverez un modèle complet de Pacte de bon voisinage (clause par clause) prêt à adapter.",
+            "action_why": """Parce que vous avez déjà la structure interne. Ce qui vous manque, c'est le pont vers l'externe. Un Pacte de bon voisinage transforme les plaintes récurrentes en dialogue structuré, et les citoyens méfiants en alliés potentiels.""",
+            "action_how": """Allez lire le **Chapitre 4** de ce Guide : *Le rôle des citoyen.ne.s et du voisinage : de la plainte à la collaboration*. Vous y trouverez un modèle complet de Pacte de bon voisinage (clause par clause) prêt à adapter.""",
             "action_time": "Quatre (4) à six (6) semaines (identification des parties prenantes, rédaction collaborative du pacte, signature formelle, première rencontre de suivi).",
             "chap_prio1": "<strong>Priorité 1 :</strong> Chapitre 4 (Le rôle des citoyen.ne.s) et Chapitre 5 (Outils)",
             "chap_prio2": "<strong>Priorité 2 :</strong> Chapitre 7 (Communication) et Chapitre 6 (Gouvernance)"
@@ -218,7 +220,7 @@ def get_profile_data(score):
             "nom": "PROFIL 3 : LE PARTENAIRE STRATÉGIQUE",
             "score_txt": "Score : 34 à 42 points",
             "css_class": "border-blue",
-            "intro": "Vous êtes dans le peloton de tête. Vous avez des protocoles solides, des partenariats actifs, et une relation constructive avec le voisinage. Votre organisme est reconnu comme un acteur de solutions, pas comme un « problème ». Cependant, vous sentez qu'il reste des angles morts, et vous voulez optimiser.",
+            "intro": """Vous êtes dans le peloton de tête. Vous avez des protocoles solides, des partenariats actifs, et une relation constructive avec le voisinage. Votre organisme est reconnu comme un acteur de solutions, pas comme un « problème ». Cependant, vous sentez qu'il reste des angles morts, et vous voulez optimiser.""",
             "forces": [
                 "Protocoles clairs et appliqués de façon cohérente",
                 "Partenariats structurés avec la Ville, les organismes pairs, et le voisinage",
@@ -231,8 +233,8 @@ def get_profile_data(score):
                 "**Innovation** : Pourriez-vous tester de nouvelles approches (médiation sociale dédiée, zone tampon élargie, co-construction avec les personnes qui se prévalent des services) ?"
             ],
             "action_titre": "Structurez votre tableau de bord d'impact et utilisez-le comme levier stratégique.",
-            "action_why": "Il vous manque la capacité à démontrer votre valeur ajoutée de manière chiffrée pour obtenir du financement additionnel ou le stabiliser, influencer les décisions municipales et provinciales, inspirer d'autres organismes et protéger votre réputation en cas de crise.",
-            "action_how": "Allez lire le **Chapitre 8** de ce Guide : *Mesurer votre impact pour durer — Indicateurs et pérennité*. Vous y trouverez un cadre complet pour bâtir un tableau de bord d'impact adapté à la cohabitation sociale.",
+            "action_why": """Il vous manque la capacité à démontrer votre valeur ajoutée de manière chiffrée pour obtenir du financement additionnel ou le stabiliser, influencer les décisions municipales et provinciales, inspirer d'autres organismes et protéger votre réputation en cas de crise.""",
+            "action_how": """Allez lire le **Chapitre 8** de ce Guide : *Mesurer votre impact pour durer — Indicateurs et pérennité*. Vous y trouverez un cadre complet pour bâtir un tableau de bord d'impact adapté à la cohabitation sociale.""",
             "action_time": "Quatre (4) à six (6) semaines (identification des indicateurs clés, mise en place d'outils de collecte de données, formation de l'équipe, premier rapport d'impact).",
             "chap_prio1": "<strong>Priorité 1 :</strong> Chapitre 8 (Mesurer votre impact) et Chapitre 7 (Communication)",
             "chap_prio2": "<strong>Priorité 2 :</strong> Chapitre 6 (Gouvernance) et Chapitre 2 (Implantation)"
@@ -242,7 +244,7 @@ def get_profile_data(score):
             "nom": "PROFIL 4 : L'INNOVATEUR SYSTÉMIQUE",
             "score_txt": "Score : 43 à 48 points",
             "css_class": "border-green",
-            "intro": "Vous êtes une référence. Votre organisme fonctionne comme une organisation apprenante : protocoles solides, partenariats stratégiques, mesure d'impact rigoureuse, communication proactive, implication citoyenne structurée. Vous ne gérez pas juste la cohabitation — vous la co-construisez.",
+            "intro": """Vous êtes une référence. Votre organisme fonctionne comme une organisation apprenante : protocoles solides, partenariats stratégiques, mesure d'impact rigoureuse, communication proactive, implication citoyenne structurée. Vous ne gérez pas juste la cohabitation — vous la co-construisez.""",
             "forces": [
                 "Approche préventive et proactive (vous gérez les risques avant qu'ils ne deviennent des crises)",
                 "Partenariats intersectoriels (Ville, CIUSSS, organismes pairs, citoyens, commerces)",
@@ -255,16 +257,16 @@ def get_profile_data(score):
                 "**Fatigue de l'excellence** : Votre équipe est-elle en risque d’épuisement ou fatigue de compassion à force de vouloir tout faire parfaitement ?"
             ],
             "action_titre": "Documentez vos pratiques exemplaires et partagez-les (devenez une ressource pour le réseau).",
-            "action_why": "Votre prochain levier est de multiplier votre impact en inspirant et en outillant d'autres organismes. Cela vous permettra de renforcer votre légitimité auprès des bailleurs de fonds, créer des alliances stratégiques, contribuer à l'amélioration systémique du secteur et valoriser votre équipe.",
-            "action_how": "Consultez la **Conclusion** et le **Chapitre 8** (Mesurer votre impact) pour structurer votre démarche de transfert de connaissances. Envisagez de publier des études de cas, d'offrir du mentorat, de co-animer des formations ou de participer à des comités consultatifs.",
+            "action_why": """Votre prochain levier est de multiplier votre impact en inspirant et en outillant d'autres organismes. Cela vous permettra de renforcer votre légitimité auprès des bailleurs de fonds, créer des alliances stratégiques, contribuer à l'amélioration systémique du secteur et valoriser votre équipe.""",
+            "action_how": """Allez lire le **Chapitre 8** (Mesurer votre impact) et la **Conclusion** de ce Guide pour structurer votre démarche de transfert de connaissances. Envisagez de publier des études de cas, d'offrir du mentorat, de co-animer des formations ou de participer à des comités consultatifs.""",
             "action_time": "Trois (3) à six (6) mois pour structurer une offre de transfert de connaissances (rédaction de cas, création d'outils, partenariats).",
             "chap_prio1": "<strong>Priorité 1 :</strong> Chapitre 8 (Impact) et Conclusion",
             "chap_prio2": "<strong>Priorité 2 :</strong> Tous les chapitres (Lecture en mode mentorat)"
         }
 
-# 6. MISE EN PAGE PRINCIPALE (QUESTIONS PAR ONGLETS POUR PLUS DE CLARTÉ)
+# 6. NAVIGATION ET QUESTIONS (ORGANISÉES PAR ONGLETS)
 
-tab1, tab2, tab3, tab4 = st.tabs(["1. GOUVERNANCE", "2. OPÉRATIONS", "3. ALLIANCES", "📊 RÉSULTATS"])
+tab1, tab2, tab3, tab4 = st.tabs(["1. GOUVERNANCE", "2. OPÉRATIONS", "3. ALLIANCES", "📊 VOS RÉSULTATS"])
 
 scores = {}
 
@@ -272,7 +274,6 @@ with tab1:
     st.markdown("### AXE A : GOUVERNANCE & PROTOCOLES")
     st.info("« Est-ce que c'est écrit, clair et appliqué ? »")
     
-    # Q1
     q1 = st.radio(
         "Q1. Votre organisme dispose-t-il d'un protocole écrit de gestion des comportements qui dérangent (violence, menaces, consommation indiscrète importante, etc.) ?",
         [
@@ -285,7 +286,6 @@ with tab1:
     scores["Q1"] = int(q1.split("pt")[0][-1])
     st.markdown("---")
 
-    # Q2
     q2 = st.radio(
         "Q2. Avez-vous formalisé vos engagements avec le voisinage (pacte, entente, rencontres structurées) ?",
         [
@@ -298,7 +298,6 @@ with tab1:
     scores["Q2"] = int(q2.split("pt")[0][-1])
     st.markdown("---")
 
-    # Q3
     q3 = st.radio(
         "Q3. Les rôles et responsabilités entre votre organisme, la Ville, le CIUSSS et les autres partenaires impliqués sont-ils clairs et documentés ?",
         [
@@ -311,7 +310,6 @@ with tab1:
     scores["Q3"] = int(q3.split("pt")[0][-1])
     st.markdown("---")
 
-    # Q4
     q4 = st.radio(
         "Q4. Mesurez-vous l'impact de vos interventions de cohabitation (données, indicateurs, rapports) ?",
         [
@@ -327,7 +325,6 @@ with tab2:
     st.markdown("### AXE B : OPÉRATIONS & TERRAIN")
     st.info("« Comment on réagit concrètement aux situations de crise ? »")
 
-    # Q5
     q5 = st.radio(
         "Q5. Comment gérez-vous les crises médiatiques (vidéo virale, article négatif, pression des citoyen.ne.s sur les réseaux sociaux) ?",
         [
@@ -340,7 +337,6 @@ with tab2:
     scores["Q5"] = int(q5.split("pt")[0][-1])
     st.markdown("---")
 
-    # Q6
     q6 = st.radio(
         "Q6. Vos équipes d’intervention sont-elles formées spécifiquement à la prévention et gestion de la cohabitation sociale (pas juste à l'intervention clinique) ?",
         [
@@ -353,7 +349,6 @@ with tab2:
     scores["Q6"] = int(q6.split("pt")[0][-1])
     st.markdown("---")
 
-    # Q7
     q7 = st.radio(
         "Q7. Quelle est votre capacité à intervenir HORS de votre bâtiment (parvis, ruelle adjacente, parc à proximité, campement, etc.) ?",
         [
@@ -366,7 +361,6 @@ with tab2:
     scores["Q7"] = int(q7.split("pt")[0][-1])
     st.markdown("---")
 
-    # Q8
     q8 = st.radio(
         "Q8. Avez-vous un processus clair pour gérer les pauses de service au sein de votre organisme et les retours après les pauses de service ?",
         [
@@ -382,7 +376,6 @@ with tab3:
     st.markdown("### AXE C : ALLIANCES & PARTENARIATS")
     st.info("« Travaille-t-on seul ou en réseau ? »")
 
-    # Q9
     q9 = st.radio(
         "Q9. Quelle est la qualité de votre relation avec les services municipaux (police, 311, propreté, urbanisme) ?",
         [
@@ -395,7 +388,6 @@ with tab3:
     scores["Q9"] = int(q9.split("pt")[0][-1])
     st.markdown("---")
 
-    # Q10
     q10 = st.radio(
         "Q10. Collaborez-vous avec d'autres organismes du secteur (refuges, haltes, centres de jour, réseau de la santé) pour gérer collectivement la cohabitation ?",
         [
@@ -408,7 +400,6 @@ with tab3:
     scores["Q10"] = int(q10.split("pt")[0][-1])
     st.markdown("---")
 
-    # Q11
     q11 = st.radio(
         "Q11. Impliquez-vous les citoyen.ne.s/voisinage de manière constructive (au-delà de « gérer les plaintes ») ?",
         [
@@ -421,7 +412,6 @@ with tab3:
     scores["Q11"] = int(q11.split("pt")[0][-1])
     st.markdown("---")
 
-    # Q12
     q12 = st.radio(
         "Q12. Avez-vous accès à des ressources de médiation sociale ou de travail de proximité dédiées à la cohabitation (pas juste à l'intervention clinique) ?",
         [
@@ -433,7 +423,7 @@ with tab3:
     )
     scores["Q12"] = int(q12.split("pt")[0][-1])
 
-# 7. CALCULS ET AFFICHAGE DES RÉSULTATS (DANS LE 4E ONGLET)
+# 7. AFFICHAGE DES RÉSULTATS (DANS LE 4E ONGLET)
 with tab4:
     total_score = sum(scores.values())
     score_a = scores["Q1"] + scores["Q2"] + scores["Q3"] + scores["Q4"]
@@ -444,7 +434,6 @@ with tab4:
 
     st.success("✅ Cliquez ci-dessous pour voir votre profil complet.")
     
-    # Colonnes pour Métriques et Graphique
     col_metrics, col_radar = st.columns([1, 1])
     
     with col_metrics:
@@ -459,7 +448,6 @@ with tab4:
         st.markdown(create_download_link(data, total_score), unsafe_allow_html=True)
 
     with col_radar:
-        # Radar Chart
         categories = ['Gouvernance', 'Opérations', 'Alliances']
         values = [score_a, score_b, score_c]
         fig = go.Figure()
@@ -481,7 +469,6 @@ with tab4:
 
     st.markdown("---")
 
-    # PROFIL ET ANALYSE
     st.markdown(f"""
     <div class="result-card {data['css_class']}">
         <h2 style="margin-top:0;">{data['nom']}</h2>
@@ -501,7 +488,6 @@ with tab4:
         for risque in data['risques']:
             st.markdown(f"- {risque}")
 
-    # ACTION (SANS LE BADGE)
     st.markdown(f"""
     <div class="action-box">
         <div class="action-title">➡️ ACTION PRIORITAIRE</div>
@@ -513,5 +499,4 @@ with tab4:
     </div>
     """, unsafe_allow_html=True)
 
-    # CHAPITRES
     st.info(f"📚 **LECTURES RECOMMANDÉES**\n\n{data['chap_prio1']}\n\n{data['chap_prio2']}")
